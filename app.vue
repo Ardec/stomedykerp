@@ -1,35 +1,34 @@
-<template>
-  <div>
-    BASE URL
-    <ClientOnly>
-      ??{{ baseUrl }}
-    </ClientOnly>
-    
-    <!-- <NuxtWelcome /> -->
-  </div>
-</template>
-
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useNuxtApp } from '#app';
 
-const { $http } = useNuxtApp();
-const config = useRuntimeConfig();
-const baseUrl = config.public.DATABASE_ID;
-const categories = ref([]);
+import { useBaseUrl } from '~/composables/useBaseUrl';
+const baseUrl = useBaseUrl();
 
-const load_categories = async () => {
-  try {
-    const response = await $http.get(`${baseUrl}/min-categories`);
-    categories.value = response.data.data.simpleCategories;
-    categories.value.forEach(element => {
-      element.searchEngine = se_read[element.searchEngine - 1]; // Upewnij się, że `se_read` jest zdefiniowane
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+const { data: categories, execute } = useFetch(baseUrl + 'category/', {
+  lazy: true
+});
 
-onMounted(load_categories);
+// onMounted(() => {
+//   execute().then(() => {
+//     console.log('Kategorie:', categories.value.data.categories); // Wyświetl dane kategorii
+//   });
+// });
 
 </script>
+
+<template>
+  <div>
+    APP
+    <ClientOnly>
+      {{ baseUrl }}
+      <div>
+        <div v-for="category in categories.data.categories" :key="category.id">
+          {{ category.name }}
+        </div>
+      </div>
+    </ClientOnly>
+
+     <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
+</template>
