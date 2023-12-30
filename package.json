@@ -13,5 +13,9 @@
     "nuxt": "^3.9.0",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "sass": "^1.69.6"
   }
 }
