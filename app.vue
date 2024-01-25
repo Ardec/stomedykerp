@@ -32,7 +32,7 @@ useHead({
 
 <style lang="scss">
 body{
-  background-color: $backgorund;
+  background-color: $background;
   font-family: 'FarAwayGalaxy', sans-serif;
   margin:0 auto;
   display:flex;
