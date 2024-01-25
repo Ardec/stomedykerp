@@ -1,7 +1,7 @@
 <template>
   <div class="center-container">
     <img class="animate__animated animate__bounce logo-container" src="~/assets/img/kdev.png" alt="Discover Nuxt 3" />
-    <h1>K-Development CoreBase for ERP & CRM</h1>
+    <h1>K-Development CoreBase</h1>
   <UButton class="start-up-button" color="primary" size="md" variant="solid">Dowiedz się więcej</UButton>
   </div>
 </template>
