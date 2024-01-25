@@ -73,3 +73,21 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+# Predefiniowane
+
+- Routing w podfolderach
+- Połączenie z API w pliku .env
+- Hosting w Neflify
+- Główny Layout
+- Kolory globalne > folder assets
+- Fonty globalne > folder assets
+- Animate.css class="animate__rubberBand"
+- Ikony <div><Icon name="bxl:facebook-circle" />Ikona</div>
+- Komponent Intro.vue
+- Nuxt UI > https://ui.nuxt.com/
+- useHead w pliku app.vue
+- SubDomena w Netlify
+- Automatyczny upload
+- Hosting do 5GB danych
+
