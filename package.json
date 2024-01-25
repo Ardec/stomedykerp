@@ -10,12 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.9.0",
+    "nuxt": "^3.8.2",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxt/devtools-kit": "^1.0.6",
+    "@nuxt/ui": "npm:@nuxt/ui-edge@latest",
     "animate.css": "^4.1.1",
-    "sass": "^1.69.6"
+    "lodash": "^4.17.21",
+    "nuxt-icon": "^0.6.2",
+    "sass": "^1.69.6",
+    "vite": "^5.0.12"
   }
 }

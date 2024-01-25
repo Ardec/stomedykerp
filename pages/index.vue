@@ -1,6 +1,7 @@
 <template>
   <div>
-   INDEX
+   <!-- INDEX -->
+   <Intro />
   </div>
 </template>
 

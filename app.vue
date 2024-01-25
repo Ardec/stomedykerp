@@ -3,37 +3,30 @@
 import { useBaseUrl } from '~/composables/useBaseUrl';
 const baseUrl = useBaseUrl();
 
-// const { data: categories, execute } = useFetch(baseUrl + 'category/', {
-//   lazy: true
-// });
-
-// onMounted(() => {
-//   execute().then(() => {
-//     console.log('Kategorie:', categories.value.data.categories); // Wyświetl dane kategorii
-//   });
-// });
+useHead({
+  title: 'K-Development CoreBase ERP & CMS',
+  meta: [
+    { name: 'description', content: 'K-Development ERP & CMS CoreBase' }
+  ],
+  bodyAttrs: {
+    class: 'test'
+  },
+  script: [ { innerHTML: 'console.log(\'K-Development Template\')' } ]
+})
 
 </script>
 
 <template>
   <div class="main-container">
-    <hr>
-    NUXT 3
-    <hr>
     <ClientOnly>
-      Adres mojego API z ENV: {{ baseUrl }}
+      <!-- Adres mojego API z ENV: {{ baseUrl }} -->
       <div>
-        <!-- <div v-for="category in categories.data.categories" :key="category.id">
-          {{ category.name }}
-        </div> -->
       </div>
     </ClientOnly>
 
      <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <img class="animate__animated animate__bounce logo-container" src="~/assets/img/kdev.png" alt="Discover Nuxt 3" />
-    Template K-Development SoftwareHouse
   </div>
 </template>
 
