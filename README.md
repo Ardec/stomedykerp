@@ -90,4 +90,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - SubDomena w Netlify
 - Automatyczny upload
 - Hosting do 5GB danych
+- Sidebar
+- Topbar
 
