@@ -12,17 +12,69 @@
     <div class="inputs">
       <div class="input-container">
         <div class="input-label">login</div>
-        <input type="text" />
+        <input type="text" v-model="email" />
       </div>
       <div class="input-container">
         <div class="input-label">hasło</div>
-        <input type="text" />
+        <input type="password" v-model="plainPassword" />
       </div>
     </div>
-    <div class="button">Zaloguj się </div>
+    <div @click="handleLogin()" class="button">Zaloguj się </div>
      <p>Nie masz jeszcze konta? <NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu"> Zarejestruj się</NuxtLink></p>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive } from 'vue';
+
+const email = ref('');
+const plainPassword = ref('');
+
+// Użyj funkcji reactive, aby Vue mógł śledzić zmiany w obiekcie
+const loginData = reactive({
+  email: email,
+  plainPassword: plainPassword,
+});
+
+// Funkcja do logowania
+const handleLogin = async () => {
+const loggedInUser = useState('loggedInUser', () => false);
+
+const baseUrl = useBaseUrl(); // Zmień na swój adres serwera API
+console.log(baseUrl)
+
+  try {
+    // Przygotowanie danych logowania
+
+    // Wykonanie żądania POST do /login
+    const { data, error } = await useFetch(`https://${baseUrl}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        email: loginData.email,
+        plainPassword: loginData.plainPassword,
+      }
+    })
+
+    // Sprawdzenie, czy odpowiedź zawiera błąd
+    if (error.value) {
+      throw new Error(error.value.message || 'Błąd podczas logowania');
+    }
+    // Obsłuż odpowiedź z serwera
+    console.log('Odpowiedź serwera:', data.value.data.user);
+    loggedInUser.value = data.value.data.user
+    console.log(loggedInUser)
+    // Tutaj możesz dalej przetwarzać odpowiedź, np. przekierować użytkownika, zapisać token itp.
+  } catch (err) {
+    // Obsługa błędów
+    console.error('Błąd logowania:', err.message);
+    // console.error('Błąd logowania:', err);
+  }
+};
+</script>
+
 
 <style lang="scss" scoped>
 .reg-link{

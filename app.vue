@@ -4,7 +4,7 @@ import { useBaseUrl } from '~/composables/useBaseUrl';
 const baseUrl = useBaseUrl();
 
 useHead({
-  title: 'K-Development CoreBase ERP & CMS',
+  title: 'K-ERP Base',
   meta: [
     { name: 'description', content: 'K-Development ERP & CMS CoreBase' }
   ],
