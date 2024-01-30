@@ -1,6 +1,6 @@
 <template>
   <div class="topbar">
-    <div class="logo">LogoText</div>
+    <div class="logo">K-ERP Base</div>
     <div class="menu"><div class="menu-icon-container" @click="toggleMenu"><Icon class="icon" name="mdi:menu" /></div></div>
   </div>
 </template>
@@ -12,7 +12,7 @@ const { menuVisible, toggleMenu } = useGlobalState();
 <style lang="scss" scoped>
 
 *{
-  color:$text-primary;
+  color:$text-secondary;
 }
 .menu-icon-container:hover{
   cursor:pointer;

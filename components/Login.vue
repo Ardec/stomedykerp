@@ -6,10 +6,10 @@
       alt="Discover Nuxt 3"
     />
     <div class="title">
-    <h1>K-ERP Base</h1>
-    <p>Wybróbuj narzędzie do zarządzania firmą, które korzysta z najnowszych technologii i rozwijaj je w dowolnym kierunku.</p>
+    <h1>Logowanie</h1>
+    <p>Podaj swoje dane logowania aby uzyskać dostęp do aplikacji</p>
     </div>
-    <!-- <div class="inputs">
+    <div class="inputs">
       <div class="input-container">
         <div class="input-label">login</div>
         <input type="text" />
@@ -18,35 +18,19 @@
         <div class="input-label">hasło</div>
         <input type="text" />
       </div>
-    </div> -->
-     <NuxtLink class="sto" to="/logowanie"> <div class="button-alt">Przejdź do logowania</div></NuxtLink>
-    <div class="button">Dowiedz się więcej</div>
-     <!-- <p>Nie masz jeszcze konta? <NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu"> Zarejestruj się</NuxtLink></p> -->
+    </div>
+    <div class="button">Zaloguj się </div>
+     <p>Nie masz jeszcze konta? <NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu"> Zarejestruj się</NuxtLink></p>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.sto{
-  width:100%;
-}
 .reg-link{
     text-decoration: underline;
 }
-.button-alt{
-  width:100%;
-  color: $text-primary;
-  text-align: center;
-  line-height: normal;
-  padding: 12px;
-  border-radius: 12px;
-  cursor:pointer;
-  transition: opacity 0.8s;
-  border:solid $primary 2px;
-
-}
 .button{
   width:100%;
-  color: $text-secondary;
+  color:$text-secondary;
   text-align: center;
   line-height: normal;
   padding: 12px;

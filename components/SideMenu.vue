@@ -5,12 +5,13 @@
         <div class="menu-icon-container" @click="toggleMenu"><Icon class="icon" name="material-symbols:close" /></div>
         </div>
       <div class="title">K-Development</div>
-      <div class="sub-title">K-Development CoreBase for ERP & CRM</div>
+      <div class="sub-title">K-Development ERP Base</div>
     </div>
     <div class="navigation">
         <nav>
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
+          <li><NuxtLink class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
         </ul>
     </nav>
     </div>
@@ -36,7 +37,7 @@ const isVisible = ref(true);
 
 <style lang="scss" scoped>
 *{
-  color:$text-primary;
+  color:$text-secondary;
 }
 .menu-icon-container{
   font-size:28px;
@@ -105,10 +106,11 @@ line-height: 39px; /* 114.706% */
   border-radius: 6px;
   font-size:16px;
   line-height: 24px;
+  transition: opacity 0.8s;
 }
 .menu-item:hover {
   cursor:pointer;
-  opacity:0.6;
+  opacity:0.8;
 
 }
 .active{
@@ -118,6 +120,11 @@ background: var(--Gray-050, #F7F8F9);
 .navigation{
   margin-top:200px;
   padding: 0px 20px;
+}
+.navigation nav ul {
+  display:flex;
+  flex-direction: column;
+  gap:4px;
 }
 .partners{
   padding:0px 20px;

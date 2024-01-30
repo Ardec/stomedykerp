@@ -92,4 +92,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - Hosting do 5GB danych
 - Sidebar
 - Topbar
+- Normalize.css
+- Tailwind.css
 
