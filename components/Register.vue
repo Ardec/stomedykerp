@@ -11,15 +11,27 @@
     </div>
     <div class="inputs">
       <div class="input-container">
-        <div class="input-label">Imię</div>
+        <div class="input-label">Login</div>
+        <input type="text" />
+      </div>
+         <div class="input-container">
+        <div class="input-label">Hasło</div>
         <input type="text" />
       </div>
       <div class="input-container">
+        <div class="input-label">Imię</div>
+        <input type="text" />
+      </div>
+         <div class="input-container">
         <div class="input-label">Nazwisko</div>
         <input type="text" />
       </div>
          <div class="input-container">
-        <div class="input-label">Adres</div>
+        <div class="input-label">Telefon</div>
+        <input type="text" />
+      </div>
+         <div class="input-container">
+        <div class="input-label">Adres e-mail</div>
         <input type="text" />
       </div>
     </div>
@@ -63,12 +75,12 @@
 }
 .button{
   width:100%;
-  color: $text-primary;
+  color: $secondary;
   text-align: center;
   line-height: normal;
   padding: 12px;
   border-radius: 12px;
-  background: #000000;
+  background: $primary;
   cursor:pointer;
   transition: opacity 0.8s;
 }
@@ -103,7 +115,7 @@
   min-width: 100%;
 }
 .input-label {
-  color: $primary;
+  color: $text-primary;
   font-family: Inter;
   font-style: normal;
   font-weight: 400;

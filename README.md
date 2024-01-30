@@ -94,4 +94,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - Topbar
 - Normalize.css
 - Tailwind.css
+- Login + token
+- Register
 

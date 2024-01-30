@@ -12,6 +12,8 @@
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
           <li><NuxtLink class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
+          <li><NuxtLink class="menu-item active" to="/blog" @click="toggleMenu">Blog</NuxtLink></li>
+          <li><NuxtLink class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
         </ul>
     </nav>
     </div>
@@ -53,11 +55,13 @@ const isVisible = ref(true);
   width: 320px;
   height: 100%;
   background: $primary;
-  box-shadow: 0px 0px 20px 2px $primary(0, 0, 0, 0.25);
+  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.5); // Dodany cień po prawej stronie
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 100;
+   border-bottom-right-radius: 50px; // Dodany border-radius do prawego dolnego rogu
+  //  border-top-right-radius: 50px; // Dodany border-radius do prawego dolnego rogu
 }
 
 // .overlay-menu::before {
@@ -118,7 +122,6 @@ color:$primary;
 background: var(--Gray-050, #F7F8F9); 
 }
 .navigation{
-  margin-top:200px;
   padding: 0px 20px;
 }
 .navigation nav ul {
