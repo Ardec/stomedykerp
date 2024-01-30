@@ -32,8 +32,9 @@ useHead({
 
 <style lang="scss">
 body{
+  color:$text-primary;
   background-color: $background;
-  font-family: 'FarAwayGalaxy', sans-serif;
+  font-family: 'Inter', sans-serif;
   margin:0 auto;
   display:flex;
 }
