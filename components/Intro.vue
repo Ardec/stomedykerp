@@ -6,6 +6,8 @@
       alt="Discover Nuxt 3"
     />
     <div class="title">
+     USER {{useState('loggedInUser')}}
+     MENU {{menuVisible}}
     <h1>K-ERP Base</h1>
     <p>Wybróbuj narzędzie do zarządzania firmą, które korzysta z najnowszych technologii i rozwijaj je w dowolnym kierunku.</p>
     </div>

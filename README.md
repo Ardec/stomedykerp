@@ -96,4 +96,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - Tailwind.css
 - Login + token
 - Register
+- useState (sharedGlobalVariables)
+- Fetch composable
 

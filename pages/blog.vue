@@ -40,7 +40,7 @@
       <td class="actions">
               <Icon class="icon" color="#094c72;" name="material-symbols:visibility" />
               <Icon class="icon" color="#ee9626" name="material-symbols:edit" />
-              <Icon class="icon" color="#c51e3a"name="material-symbols:delete" />
+              <Icon class="icon" color="#c51e3a" name="material-symbols:delete" />
             </td> <!-- Komórki z akcjami -->
     </tr>
        <tr>
@@ -57,7 +57,7 @@
       <td class="actions">
               <Icon class="icon" color="#094c72;" name="material-symbols:visibility" />
               <Icon class="icon" color="#ee9626" name="material-symbols:edit" />
-              <Icon class="icon" color="#c51e3a"name="material-symbols:delete" />
+              <Icon class="icon" color="#c51e3a" name="material-symbols:delete" />
             </td> <!-- Komórki z akcjami -->
     </tr>
        <tr>
@@ -74,7 +74,7 @@
       <td class="actions">
               <Icon class="icon" color="#094c72;" name="material-symbols:visibility" />
               <Icon class="icon" color="#ee9626" name="material-symbols:edit" />
-              <Icon class="icon" color="#c51e3a"name="material-symbols:delete" />
+              <Icon class="icon" color="#c51e3a" name="material-symbols:delete" />
             </td> <!-- Komórki z akcjami -->
     </tr>
   </tbody>
@@ -141,10 +141,6 @@ input .tablehead{
     color: $text-secondary;
     justify-content: space-between; // Rozkładanie zawartości po obu stronach
     align-items: center;
-  }
-
-  .icon {
-    // Style dla ikon
   }
 
   th:last-child, td:last-child {
