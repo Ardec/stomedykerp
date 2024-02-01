@@ -36,20 +36,7 @@
             </td> <!-- Komórki z akcjami -->
     </tr>
   </tbody>
-  <ShowModal />
-    <!-- <UModal v-model="isOpen" prevent-close>
-      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-        <template #header>
-          <div class="flex items-center justify-between">
-            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-              Edycja użytkownika {{selectedItem.name}}
-            </h3>
-            <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" />
-          </div>
-        </template>
-        <Placeholder class="h-32" />
-      </UCard>
-    </UModal> -->
+  <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" />
 </table>
 
     </div>
@@ -58,14 +45,14 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-const allUsers = ref(null); // Inicjalizacja stanu użytkowników jako null
-const isOpen = ref(false);
-const selectedItem =  ref({});
+let allUsers = ref(null); // Inicjalizacja stanu użytkowników jako null
+let isOpen = ref(false);
+let selectedItem =  ref({});
 
 function openModal(item){
 isOpen.value = true;
 selectedItem.value = item;
-console.log("otwieram modal", isOpen)
+console.log("otwieram modal", isOpen.value)
 console.log(selectedItem);
 }
 
