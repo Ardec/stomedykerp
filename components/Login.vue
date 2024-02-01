@@ -6,7 +6,7 @@
       alt="Discover Nuxt 3"
     />
     <div class="title">
-     USER_LOGIN {{loggedUser?.token}}
+     <!-- USER_LOGIN {{loggedUser?.token}} -->
     <h1>Logowanie</h1>
     <p>Podaj swoje dane logowania aby uzyskać dostęp do aplikacji</p>
     </div>
