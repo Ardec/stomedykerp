@@ -11,31 +11,31 @@
     </div>
     <div class="inputs">
       <div class="input-container">
-        <div class="input-label">Login</div>
-        <input type="text" />
+        <div class="input-label">Nazwa użytkownika</div>
+        <input v-model="registerData.name" type="text" />
       </div>
          <div class="input-container">
         <div class="input-label">Hasło</div>
-        <input type="text" />
+        <input v-model="registerData.plainPassword" type="text" />
       </div>
       <div class="input-container">
         <div class="input-label">Imię</div>
-        <input type="text" />
+        <input v-model="registerData.firstname" type="text" />
       </div>
          <div class="input-container">
         <div class="input-label">Nazwisko</div>
-        <input type="text" />
+        <input v-model="registerData.lastname" type="text" />
       </div>
          <div class="input-container">
         <div class="input-label">Telefon</div>
-        <input type="text" />
+        <input v-model="registerData.phone" type="text" />
       </div>
          <div class="input-container">
         <div class="input-label">Adres e-mail</div>
-        <input type="text" />
+        <input v-model="registerData.email" type="text" />
       </div>
     </div>
-    <div class="button">Zarejestruj się</div>
+    <div @click="goRegister" class="button">Zarejestruj się</div>
         <div class="terms">
        <input type="checkbox" />
       <p>Zgadzam się z Warunkami korzystania z usług i akceptuję<NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu">Regulamin korzystania z Aplikacji</NuxtLink></p>
@@ -43,6 +43,13 @@
 
   </div>
 </template>
+<script setup>
+let registerData = ref({});
+const goRegister = function() {
+  useRegister(registerData)
+  registerData = {}
+}
+</script>
 
 <style lang="scss" scoped>
 .reg-link{

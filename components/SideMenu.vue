@@ -12,8 +12,10 @@
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
           <li><NuxtLink class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
-          <li><NuxtLink class="menu-item active" to="/blog" @click="toggleMenu">Blog</NuxtLink></li>
+          <li><NuxtLink class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
+          <!-- <li><NuxtLink class="menu-item active" to="/blog" @click="toggleMenu">Blog</NuxtLink></li> -->
           <li><NuxtLink class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
+          <li><NuxtLink class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
         </ul>
     </nav>
     </div>
