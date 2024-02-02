@@ -1,34 +1,34 @@
 <template>
     <div class="blog-container">
     <div>
-    <h1>Użytkownicy</h1>
-    <p>W tym module możesz zarządzać Użytkownikami</p>
-    <!-- <div @click="loadUsers" class="button">Załaduj dane<Icon class="icon" name="basil:add-solid" /></div> -->
+    <h1>Informacje</h1>
+    <p>W tym module możesz zarządzać podstawowymi informacjami</p>
+    <div @click="openModal" class="button">Dodaj nowe<Icon class="icon" name="basil:add-solid" /></div>
     </div>
     <div class="data-container">
         <table class="blog-table">
   <thead>
     <tr>
-      <th><div class="table-head">Nazwa użytkownika <Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
-      <th><div class="table-head">Uprawnienia <Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
-      <th><div class="table-head">Imię<Icon class="icon" name="mingcute:za-sort-ascending-letters-line" /></div> </th>
-      <th><div class="table-head">Nazwisko<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
-      <th><div class="table-head">Telefon<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
-      <th><div class="table-head">Email<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
-      <th><div class="table-head">actions</div></th>
+      <th><div class="table-head">Nazwa<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
+      <th><div class="table-head">Telefon <Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
+      <th><div class="table-head">E-mail<Icon class="icon" name="mingcute:za-sort-ascending-letters-line" /></div> </th>
+      <th><div class="table-head">Krótki Opis<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
+      <th><div class="table-head">Długi Opis<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
+      <th><div class="table-head">Logo<Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></div></th>
+      <th><div class="table-head">Akcje</div></th>
     </tr>
      <tr>
       <!-- <th><input type="text" class="table-head"></input><Icon class="icon" name="mingcute:za-sort-descending-letters-line" /></th> -->
     </tr>
   </thead>
   <tbody>
-      <tr v-for="(item) in allUsers?.users" v-bind:key="item.id">
+      <tr v-for="(item) in allInfos?.ownerInfos" v-bind:key="item.id">
       <td>{{item?.name}}</td>
-      <td>{{item?.roles}}</td>
-      <td>{{item?.firstname}}</td>
-      <td>{{item?.lastname}}</td>
       <td>{{item?.phone}}</td>
       <td>{{item?.email}}</td>
+      <td>{{item?.shortDescription}}</td>
+      <td>{{item?.longDescription}}</td>
+      <td>{{item?.logo}}</td>
       <td class="actions">
               <!-- <Icon class="icon" color="#094c72;" name="material-symbols:visibility" /> -->
               <Icon @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
@@ -36,16 +36,15 @@
             </td> <!-- Komórki z akcjami -->
     </tr>
   </tbody>
-  <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
+  <InfosModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
 </table>
 
     </div>
     </div>
 </template>
-
 <script setup>
 import { onMounted, ref } from 'vue';
-let allUsers = ref(null); // Inicjalizacja stanu użytkowników jako null
+let allInfos = ref(null); // Inicjalizacja stanu użytkowników jako null
 let isOpen = ref(false);
 let selectedItem =  ref({});
 
@@ -54,15 +53,12 @@ isOpen.value = true;
 selectedItem.value = item;
 }
 
-async function loadUsers() {
-  allUsers.value = await useLoadUser();
+async function loadInfos() {
+  allInfos.value = await useLoadInfos();
 }
 
 async function updateRecord(newUserData) {
-  console.log("Dane nowego użytkownika", newUserData.editedUser);
-  console.log(allUsers.value.users);
 
-  // Sprawdzanie, czy allUsers.value.users jest tablicą i czy zawiera jakiekolwiek elementy
   if (Array.isArray(allUsers.value.users) && allUsers.value.users.length > 0) {
     const userIndex = allUsers.value.users.findIndex(user => user.id === newUserData.editedUser.id);
     console.log(userIndex);
@@ -70,7 +66,7 @@ async function updateRecord(newUserData) {
     // Jeśli znaleziono użytkownika o podanym ID, zaktualizuj jego dane
     if (userIndex !== -1) {
       // Tutaj poprawnie aktualizujemy dane użytkownika w tablicy users
-      allUsers.value.users[userIndex] = { ...allUsers.value.users[userIndex], ...newUserData.editedUser };
+      allInfos.value.users[userIndex] = { ...allUsers.value.users[userIndex], ...newUserData.editedUser };
       console.log("Zaktualizowano użytkownika:", allUsers.value.users[userIndex]);
     } else {
       console.log("Nie znaleziono użytkownika o ID:", newUserData.editedUser.id);
@@ -82,7 +78,7 @@ async function updateRecord(newUserData) {
 
 
 onMounted(() => {
-  loadUsers(); // Ładowanie użytkowników po montowaniu komponentu
+  loadInfos(); // Ładowanie użytkowników po montowaniu komponentu
 });
 
 </script>

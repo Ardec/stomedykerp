@@ -6,8 +6,8 @@
           <div class="flex items-center justify-between">
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
              Edycja użytkownika - {{ $attrs?.item.name }}
-             {{$attrs?.item}}
-             {{newData}}
+             <!-- {{$attrs?.item}}
+             {{newData}} -->
             </h3>
             <UButton
               color="gray"
@@ -44,7 +44,6 @@
             :placeholder="attrs.item.roles"
             disabled
             size="xl"
-            color="primary"
             variant="outline"
           />
           <!-- <UInput size="xl" disabled v-model="newData.password" placeholder="Podaj nowe hasło" /> -->
