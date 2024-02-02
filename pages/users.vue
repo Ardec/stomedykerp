@@ -3,7 +3,8 @@
     <div>
     <h1>Użytkownicy</h1>
     <p>W tym module możesz zarządzać Użytkownikami</p>
-    <!-- <div class="button">Dodaj<Icon class="icon" name="basil:add-solid" /></div> -->
+    <!-- <div @click="loadUsers" class="button">Załaduj dane<Icon class="icon" name="basil:add-solid" /></div> -->
+    <div @click="loadUsers" class="button">Załaduj dane</div>
     </div>
     <div class="data-container">
         <table class="blog-table">
@@ -22,21 +23,21 @@
     </tr>
   </thead>
   <tbody>
-      <tr v-for="item in allUsers?.users" v-bind:key="item.id">
+      <tr v-for="(item) in allUsers?.users" v-bind:key="item.id">
       <td>{{item?.name}}</td>
-      <td>{{item?.roles[0]}}</td>
+      <td>{{item?.roles}}</td>
       <td>{{item?.firstname}}</td>
       <td>{{item?.lastname}}</td>
       <td>{{item?.phone}}</td>
       <td>{{item?.email}}</td>
       <td class="actions">
-              <Icon class="icon" color="#094c72;" name="material-symbols:visibility" />
+              <!-- <Icon class="icon" color="#094c72;" name="material-symbols:visibility" /> -->
               <Icon @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
-              <Icon class="icon" color="#c51e3a" name="material-symbols:delete" />
+              <!-- <Icon class="icon" color="#c51e3a" name="material-symbols:delete" /> -->
             </td> <!-- Komórki z akcjami -->
     </tr>
   </tbody>
-  <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" />
+  <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
 </table>
 
     </div>
@@ -52,13 +53,36 @@ let selectedItem =  ref({});
 function openModal(item){
 isOpen.value = true;
 selectedItem.value = item;
-console.log("otwieram modal", isOpen.value)
-console.log(selectedItem);
 }
 
 async function loadUsers() {
+  console.log("ładujemy użytkowników")
   allUsers.value = await useLoadUser();
+  console.log("Załadowano użytkowników:", allUsers.value);
 }
+
+async function updateRecord(newUserData) {
+  console.log("Dane nowego użytkownika", newUserData.editedUser);
+  console.log(allUsers.value.users);
+
+  // Sprawdzanie, czy allUsers.value.users jest tablicą i czy zawiera jakiekolwiek elementy
+  if (Array.isArray(allUsers.value.users) && allUsers.value.users.length > 0) {
+    const userIndex = allUsers.value.users.findIndex(user => user.id === newUserData.editedUser.id);
+    console.log(userIndex);
+
+    // Jeśli znaleziono użytkownika o podanym ID, zaktualizuj jego dane
+    if (userIndex !== -1) {
+      // Tutaj poprawnie aktualizujemy dane użytkownika w tablicy users
+      allUsers.value.users[userIndex] = { ...allUsers.value.users[userIndex], ...newUserData.editedUser };
+      console.log("Zaktualizowano użytkownika:", allUsers.value.users[userIndex]);
+    } else {
+      console.log("Nie znaleziono użytkownika o ID:", newUserData.editedUser.id);
+    }
+  } else {
+    console.log("Lista użytkowników jest pusta lub nie jest tablicą");
+  }
+}
+
 
 onMounted(() => {
   loadUsers(); // Ładowanie użytkowników po montowaniu komponentu
