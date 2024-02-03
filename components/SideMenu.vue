@@ -11,11 +11,10 @@
         <nav>
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
-          <li><NuxtLink class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
-          <li><NuxtLink class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
-          <!-- <li><NuxtLink class="menu-item active" to="/blog" @click="toggleMenu">Blog</NuxtLink></li> -->
-          <li><NuxtLink class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
-          <li><NuxtLink class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
+          <li><NuxtLink v-if="!User.token" class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
+          <li><NuxtLink v-if="!User.token" class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
+          <li><NuxtLink v-if="User.token" class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
+          <li><NuxtLink v-if="User.token" class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
         </ul>
     </nav>
     </div>
@@ -32,6 +31,7 @@
 import { useGlobalState } from '~/composables/useGlobalState';
 const { menuVisible, toggleMenu } = useGlobalState();
 const baseUrl = useBaseUrl();
+const User = useState('loggedInUser', () => ({}));
 
 // Zmienna kontrolująca widoczność menu
 const isVisible = ref(true);
@@ -129,7 +129,6 @@ background: var(--Gray-050, #F7F8F9);
 .navigation nav ul {
   display:flex;
   flex-direction: column;
-  gap:4px;
 }
 .partners{
   padding:0px 20px;

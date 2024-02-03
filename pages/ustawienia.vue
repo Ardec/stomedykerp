@@ -36,7 +36,8 @@
             </td> <!-- Komórki z akcjami -->
     </tr>
   </tbody>
-  <InfosModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
+  <InfosModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" @add-record="addRecord" />
+  <UButton label="Show toast" @click="toast.add({ title: 'Click me', click: onClick })" />
 </table>
 
     </div>
@@ -44,6 +45,7 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
+const toast = useToast()
 let allInfos = ref(null); // Inicjalizacja stanu użytkowników jako null
 let isOpen = ref(false);
 let selectedItem =  ref({});
@@ -57,19 +59,25 @@ async function loadInfos() {
   allInfos.value = await useLoadInfos();
 }
 
-async function updateRecord(newUserData) {
+function addRecord(newInfoData) {
+  console.log("nowe dane",newInfoData.newOwnerInfo)
+  console.log("stara tablica",allInfos)
+  allInfos.value.ownerInfos.push(newInfoData.newOwnerInfo)
+}
 
-  if (Array.isArray(allUsers.value.users) && allUsers.value.users.length > 0) {
-    const userIndex = allUsers.value.users.findIndex(user => user.id === newUserData.editedUser.id);
-    console.log(userIndex);
+async function updateRecord(newInfoData) {
+
+  if (Array.isArray(allInfos.value.ownerInfos) && allInfos.value.ownerInfos.length > 0) {
+    const infoIndex = allInfos.value.ownerInfos.findIndex(user => user.id === newInfoData.editedOwnerInfo.id);
+    console.log(infoIndex);
 
     // Jeśli znaleziono użytkownika o podanym ID, zaktualizuj jego dane
-    if (userIndex !== -1) {
-      // Tutaj poprawnie aktualizujemy dane użytkownika w tablicy users
-      allInfos.value.users[userIndex] = { ...allUsers.value.users[userIndex], ...newUserData.editedUser };
-      console.log("Zaktualizowano użytkownika:", allUsers.value.users[userIndex]);
+    if (infoIndex !== -1) {
+      // Tutaj poprawnie aktualizujemy dane użytkownika w tablicy ownerInfos
+      allInfos.value.ownerInfos[infoIndex] = { ...allInfos.value.ownerInfos[infoIndex], ...newInfoData.editedOwnerInfo };
+      console.log("Zaktualizowano użytkownika:", allInfos.value.ownerInfos[infoIndex]);
     } else {
-      console.log("Nie znaleziono użytkownika o ID:", newUserData.editedUser.id);
+      console.log("Nie znaleziono użytkownika o ID:", newInfoData.editedOwnerInfo.id);
     }
   } else {
     console.log("Lista użytkowników jest pusta lub nie jest tablicą");
@@ -79,8 +87,15 @@ async function updateRecord(newUserData) {
 
 onMounted(() => {
   loadInfos(); // Ładowanie użytkowników po montowaniu komponentu
+   toast.add({
+    id: 'update_downloaded',
+    title: 'Update downloaded.',
+    color: "green",
+    description: 'It will be installed on restart. Restart now?',
+    icon: 'i-octicon-desktop-download-24',
+    timeout: 3000,
+  })
 });
-
 </script>
 
 

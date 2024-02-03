@@ -6,7 +6,6 @@
       alt="Discover Nuxt 3"
     />
     <div class="title">
-     <!-- USER_LOGIN {{loggedUser?.token}} -->
     <h1>Logowanie</h1>
     <p>Podaj swoje dane logowania aby uzyskać dostęp do aplikacji</p>
     </div>
@@ -23,19 +22,11 @@
     <div @click="handleLogin2()" class="button">Zaloguj się </div>
      <p>Nie masz jeszcze konta? <NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu"> Zarejestruj się</NuxtLink></p>
   </div>
-   <UAlert
-   v-if="loggedUser?.token"
-    icon="i-heroicons-command-line"
-    color="primary"
-    variant="solid"
-    title="Zalogowano pomyślnie"
-    :description="'Witaj ' + loggedUser?.name + '! Możesz teraz bez przeszkód korzystać z aplikacji'"
-/>
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue';
-
+const toast = useToast();
 const email = ref('');
 const plainPassword = ref('');
 const loggedUser = useState('loggedInUser');

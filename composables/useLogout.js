@@ -1,24 +1,24 @@
-export const useLogin = async (email, plainPassword) => {
-    const User = useState('loggedInUser', () => ({}));
-    const menuVisible = useState('menuVisible', () => false);
-
+export const useLogout = async () => {
+    const loggedUser = useState('loggedInUser');
+    console.log(loggedUser.value.email)
+    console.log(loggedUser.value.token)
     const baseUrl = useBaseUrl();
     const toast = useToast();
     try {
-      const { data, error } = await useFetch(`https://${baseUrl}/login`, {
+      const { data, error } = await useFetch(`https://${baseUrl}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: {
-          email,
-          plainPassword,
+          email: loggedUser.value.email,
+          token: loggedUser.value.token,
         }
       });
       if (error.value) {
         toast.add({
-          id: 'failed',
-          title: 'Błąd logowania',
+          id: 'logout_failed',
+          title: 'Błąd wylogowania',
           color: "red",
           description: 'Sprawdź czy dane są poprawne i spróbuj ponownie',
           icon: 'i-octicon-desktop-download-24',
@@ -26,21 +26,19 @@ export const useLogin = async (email, plainPassword) => {
         })
         throw new Error(error.value.message || 'Błąd podczas logowania');
       }
-      // Aktualizacja globalnego stanu użytkownika
-      User.value = data.value.data.user;
+      loggedUser.value = data.value.data.user;
       toast.add({
-        id: 'success',
-        title: 'Witaj '+data.value.data.user.name+'!',
+        id: 'logout_success',
+        title: 'Wylogowano Cię z aplikacji '+data.value.data.user.name+'!',
         color: "green",
-        description: 'Od teraz możesz korzystać ze wszystkich funkcji aplikacji',
+        description: 'Chyba nadszedł czas, żeby zrobić sobie przerwę',
         icon: 'i-octicon-desktop-download-24',
         timeout: 6000,
       })
-      menuVisible.value = true;
     } catch (err) {
       toast.add({
-        id: 'failed',
-        title: 'Błąd logowania',
+        id: 'logout_failed',
+        title: 'Błąd wylogowania',
         color: "red",
         description: 'Sprawdź czy dane są poprawne i spróbuj ponownie',
         icon: 'i-octicon-desktop-download-24',

@@ -5,10 +5,8 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-              Dodaj nowe informacje
-              <!-- - {{ $attrs?.item.name }} -->
-              <!-- {{$attrs?.item}}
-             {{newData}} -->
+              <span v-if="attrs.item.id">Edytuj dane</span>
+              <span v-if="!attrs.item.id">Dodaj nowe dane</span>
             </h3>
             <UButton
               color="gray"
@@ -49,8 +47,8 @@
             <UInput size="xl" v-model="newData.logo" :placeholder="attrs.item.logo" />
           </UFormGroup>
           <div class="bottom-buttons">
-            <UButton @click="useAddInfos(newData)" size="xl">Zapisz zmiany</UButton>
-            <!-- <UButton @click="editUser(newData)" size="xl">Zapisz zmiany</UButton> -->
+            <UButton v-if="!attrs.item.id" @click="addInfo(newData)" size="xl">Dodaj nowy</UButton>
+            <UButton v-if="attrs.item.id" @click="editInfo(newData)" size="xl">Zapisz</UButton>
             <UButton @click="closeModal()" size="xl" color="orange">Anuluj</UButton>
           </div>
         </div>
@@ -60,7 +58,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["close-modal", "update-record"]);
+const emit = defineEmits(["close-modal", "update-record", "add-record"]);
 const attrs = useAttrs();
 let newData = ref({});
 let isOpen = ref(false);
@@ -68,14 +66,25 @@ isOpen = computed(() => attrs.isOpen);
 
 function closeModal() {
   emit("close-modal");
+  newData.value = {};
 }
 
-const editUser = async (newData) => {
+const addInfo = async (data) => {
+   try {
+    const newInfoData = await useAddInfos(data);
+    emit("add-record", newInfoData);
+    newData.value = {};
+    emit("close-modal");
+  } catch (error) {
+    console.error("Wystąpił błąd podczas edycji użytkownika:", error);
+  }
+}
+
+const editInfo = async (newData) => {
   try {
-    newData.role = selected;
     newData.id = attrs.item.id;
-    const newUserData = await useEditUser(newData);
-    emit("update-record", newUserData);
+    const editedInfoData = await useEditInfo(newData);
+    emit("update-record", editedInfoData);
     emit("close-modal");
   } catch (error) {
     console.error("Wystąpił błąd podczas edycji użytkownika:", error);
