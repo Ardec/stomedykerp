@@ -11,14 +11,18 @@
         <nav>
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
-          <li><NuxtLink v-if="!User.token" class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
-          <li><NuxtLink v-if="!User.token" class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
-          <li><NuxtLink v-if="User.token" class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
-          <li><NuxtLink v-if="User.token" class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
+          <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
+          <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
+          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
+          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
         </ul>
     </nav>
     </div>
     <div class="partners">
+       <p><b>{{myInfo.name}}</b><br />{{myInfo.phone}}<br />{{myInfo.email}}</p>
+       <p>{{myInfo.shortDescription}}</p>
+       <p>{{myInfo.longDescription}}</p>
+       <p>Dowiedz się więcej na <br /><a href="https://k-development.pl">k-development.pl</a></p>
       <div class="description">
       </div>
       <div class="section">
@@ -32,11 +36,10 @@ import { useGlobalState } from '~/composables/useGlobalState';
 const { menuVisible, toggleMenu } = useGlobalState();
 const baseUrl = useBaseUrl();
 const User = useState('loggedInUser', () => ({}));
-
-// Zmienna kontrolująca widoczność menu
 const isVisible = ref(true);
+const myInfo = useState('myInfo');
 
-// Tutaj możesz dodać logikę otwierania/zamykania menu
+
 </script>
 
 <style lang="scss" scoped>
@@ -57,26 +60,13 @@ const isVisible = ref(true);
   width: 320px;
   height: 100%;
   background: $primary;
-  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.5); // Dodany cień po prawej stronie
+  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.3); // Dodany cień po prawej stronie
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 100;
-   border-bottom-right-radius: 50px; // Dodany border-radius do prawego dolnego rogu
-  //  border-top-right-radius: 50px; // Dodany border-radius do prawego dolnego rogu
+  border-bottom-right-radius: 50px; // Dodany border-radius do prawego dolnego rogu
 }
-
-// .overlay-menu::before {
-//   content: '';
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-size: cover;
-//   z-index: -1;
-//   opacity: 0.5; /* Dostosuj wartość dla odpowiedniego poziomu przyciemnienia */
-// }
 
 .header-container{
   margin:8px 24px;
@@ -131,12 +121,17 @@ background: var(--Gray-050, #F7F8F9);
   flex-direction: column;
 }
 .partners{
-  padding:0px 20px;
+  padding:60px 20px;
+  line-height: 1.4rem;
+  display:flex;
+  flex-direction: column;
+  gap:16px;
 }
 
 nav ul {
   list-style: none;
   padding: 0;
+  gap:4px;
 }
 nav ul li a {
   text-decoration: none;

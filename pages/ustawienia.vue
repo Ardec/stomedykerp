@@ -37,7 +37,7 @@
     </tr>
   </tbody>
   <InfosModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" @add-record="addRecord" />
-  <UButton label="Show toast" @click="toast.add({ title: 'Click me', click: onClick })" />
+  <!-- <UButton label="Show toast" @click="toast.add({ title: 'Click me', click: onClick })" /> -->
 </table>
 
     </div>

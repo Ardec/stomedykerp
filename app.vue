@@ -1,30 +1,27 @@
 <script setup>
-
-import { useBaseUrl } from '~/composables/useBaseUrl';
-const baseUrl = useBaseUrl();
-
 useHead({
-  title: 'K-ERP Base',
-  meta: [
-    { name: 'description', content: 'K-Development ERP & CMS CoreBase' }
-  ],
+  title: "K-ERP Base",
+  meta: [{ name: "description", content: "K-Development ERP & CMS CoreBase" }],
   bodyAttrs: {
-    class: 'test'
+    class: "test",
   },
-  script: [ { innerHTML: 'console.log(\'K-Development Template\')' } ]
-})
+  script: [{ innerHTML: "console.log('K-Development Template')" }],
+});
+
+import { onMounted, ref } from 'vue';
+let allInfos = ref({}); // Inicjalizacja stanu użytkowników jako null
+
+allInfos.value = useLoadInfo(1);
 
 </script>
 
 <template>
   <div class="main-container">
     <ClientOnly>
-      <!-- Adres mojego API z ENV: {{ baseUrl }} -->
-      <div>
-      </div>
+      <div></div>
     </ClientOnly>
 
-     <NuxtLayout>
+    <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <UNotifications />
@@ -32,12 +29,12 @@ useHead({
 </template>
 
 <style lang="scss">
-body{
-  color:$text-primary;
+body {
+  color: $text-primary;
   background-color: $background;
-  font-family: 'Inter', sans-serif;
-  margin:0 auto;
-  display:flex;
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
+  display: flex;
 }
 .logo-container {
   display: flex;
