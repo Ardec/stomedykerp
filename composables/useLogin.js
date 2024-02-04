@@ -1,6 +1,6 @@
 export const useLogin = async (email, plainPassword) => {
     const User = useState('loggedInUser', () => ({}));
-    const menuVisible = useState('menuVisible', () => false);
+    const menuVisible = useState('menuVisible');
 
     const baseUrl = useBaseUrl();
     const toast = useToast();

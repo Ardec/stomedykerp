@@ -1,5 +1,6 @@
 <template>
   <div class="main-container">
+     <!-- USESTATE{{Informacje}} -->
     <TopBar :leftIcon="true" :rightIcon="false" />
     <SideMenu />
     <slot />
@@ -7,6 +8,8 @@
 </template>
 
 <script setup>
+
+// let Informacje = useState('info_1');
 
 </script>
 

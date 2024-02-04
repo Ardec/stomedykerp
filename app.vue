@@ -1,30 +1,32 @@
 <script setup>
-
-import { useBaseUrl } from '~/composables/useBaseUrl';
-const baseUrl = useBaseUrl();
-
+const loadInfo = async () => {
+    useLoadInfo(1);
+};
 useHead({
-  title: 'K-ERP Base',
-  meta: [
-    { name: 'description', content: 'K-Development ERP & CMS CoreBase' }
-  ],
+  title: "K-ERP Base",
+  meta: [{ name: "description", content: "K-Development ERP & CMS CoreBase" }],
   bodyAttrs: {
-    class: 'test'
+    class: "test",
   },
-  script: [ { innerHTML: 'console.log(\'K-Development Template\')' } ]
-})
+  script: [{ innerHTML: "console.log('K-Development Template')" }],
+});
+
+onMounted(async () => {
+  await loadInfo();
+  await nextTick(); // Upewnia się, że wszystkie aktualizacje DOM zostały zakończone
+});
 
 </script>
 
 <template>
   <div class="main-container">
     <ClientOnly>
-      <!-- Adres mojego API z ENV: {{ baseUrl }} -->
-      <div>
-      </div>
+      dssd
+      <Ubutton @click="loadInfo()">pobierz</UButton>
+      <div></div>
     </ClientOnly>
 
-     <NuxtLayout>
+    <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <UNotifications />
@@ -32,12 +34,12 @@ useHead({
 </template>
 
 <style lang="scss">
-body{
-  color:$text-primary;
+body {
+  color: $text-primary;
   background-color: $background;
-  font-family: 'Inter', sans-serif;
-  margin:0 auto;
-  display:flex;
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
+  display: flex;
 }
 .logo-container {
   display: flex;
