@@ -1,7 +1,4 @@
 <script setup>
-const loadInfo = async () => {
-    useLoadInfo(1);
-};
 useHead({
   title: "K-ERP Base",
   meta: [{ name: "description", content: "K-Development ERP & CMS CoreBase" }],
@@ -11,18 +8,16 @@ useHead({
   script: [{ innerHTML: "console.log('K-Development Template')" }],
 });
 
-onMounted(async () => {
-  await loadInfo();
-  await nextTick(); // Upewnia się, że wszystkie aktualizacje DOM zostały zakończone
-});
+import { onMounted, ref } from 'vue';
+let allInfos = ref({}); // Inicjalizacja stanu użytkowników jako null
+
+allInfos.value = useLoadInfo(1);
 
 </script>
 
 <template>
   <div class="main-container">
     <ClientOnly>
-      dssd
-      <Ubutton @click="loadInfo()">pobierz</UButton>
       <div></div>
     </ClientOnly>
 

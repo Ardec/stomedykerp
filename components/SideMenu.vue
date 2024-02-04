@@ -4,7 +4,6 @@
       <div class="button">
         <div class="menu-icon-container" @click="toggleMenu"><Icon class="icon" name="material-symbols:close" /></div>
         </div>
-        asdasd{{informacje}}
       <div class="title">K-Development</div>
       <div class="sub-title">K-Development ERP Base</div>
     </div>
@@ -20,6 +19,10 @@
     </nav>
     </div>
     <div class="partners">
+       <p><b>{{myInfo.name}}</b><br />{{myInfo.phone}}<br />{{myInfo.email}}</p>
+       <p>{{myInfo.shortDescription}}</p>
+       <p>{{myInfo.longDescription}}</p>
+       <p>Dowiedz się więcej na <br /><a href="https://k-development.pl">k-development.pl</a></p>
       <div class="description">
       </div>
       <div class="section">
@@ -33,10 +36,9 @@ import { useGlobalState } from '~/composables/useGlobalState';
 const { menuVisible, toggleMenu } = useGlobalState();
 const baseUrl = useBaseUrl();
 const User = useState('loggedInUser', () => ({}));
-let informacje = ref({});
-informacje = useState('informacje');
-
 const isVisible = ref(true);
+const myInfo = useState('myInfo');
+
 
 </script>
 
@@ -119,7 +121,11 @@ background: var(--Gray-050, #F7F8F9);
   flex-direction: column;
 }
 .partners{
-  padding:0px 20px;
+  padding:60px 20px;
+  line-height: 1.4rem;
+  display:flex;
+  flex-direction: column;
+  gap:16px;
 }
 
 nav ul {
