@@ -86,15 +86,7 @@ async function updateRecord(newInfoData) {
 
 
 onMounted(() => {
-  loadInfos(); // Ładowanie użytkowników po montowaniu komponentu
-   toast.add({
-    id: 'update_downloaded',
-    title: 'Update downloaded.',
-    color: "green",
-    description: 'It will be installed on restart. Restart now?',
-    icon: 'i-octicon-desktop-download-24',
-    timeout: 3000,
-  })
+  loadInfos();
 });
 </script>
 
