@@ -22,14 +22,14 @@
   </thead>
   <tbody>
       <tr v-for="(item) in allUsers?.users" v-bind:key="item.id">
-      <td>{{item?.name}}{{item.id}}</td>
+      <td>{{item?.name}}</td>
       <td>{{item?.roles}}</td>
       <td>{{item?.firstname}}</td>
       <td>{{item?.lastname}}</td>
       <td>{{item?.phone}}</td>
       <td>{{item?.email}}</td>
       <td class="actions">
-      <Icon @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
+      <Icon v-if="item.id!=17" @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
             </td>
     </tr>
   </tbody>
