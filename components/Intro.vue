@@ -6,24 +6,11 @@
       alt="Discover Nuxt 3"
     />
     <div class="title">
-     <!-- USER {{useState('loggedInUser')}} -->
-     <!-- MENU {{menuVisible}} -->
     <h1>K-ERP Base</h1>
     <p>Wybróbuj narzędzie do zarządzania firmą, które korzysta z najnowszych technologii i rozwijaj je w dowolnym kierunku.</p>
     </div>
-    <!-- <div class="inputs">
-      <div class="input-container">
-        <div class="input-label">login</div>
-        <input type="text" />
-      </div>
-      <div class="input-container">
-        <div class="input-label">hasło</div>
-        <input type="text" />
-      </div>
-    </div> -->
-     <NuxtLink class="sto" to="/logowanie"> <div class="button-alt">Przejdź do logowania</div></NuxtLink>
-    <div class="button">Dowiedz się więcej</div>
-     <!-- <p>Nie masz jeszcze konta? <NuxtLink class="menu-item active reg-link" to="/rejestracja" @click="toggleMenu"> Zarejestruj się</NuxtLink></p> -->
+     <NuxtLink class="sto" to="/logowanie" > <div class="button-alt">Przejdź do logowania</div></NuxtLink>
+    <NuxtLink class="sto" to="/info" ><div class="button">Dowiedz się więcej</div></NuxtLink>
   </div>
 </template>
 
