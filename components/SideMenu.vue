@@ -11,6 +11,7 @@
         <nav>
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
+          <li><NuxtLink  class="menu-item active" to="/info" @click="toggleMenu">Informacje</NuxtLink></li>
           <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
           <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
           <li v-if="User.token"><NuxtLink  class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>

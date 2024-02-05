@@ -3,7 +3,6 @@
     <div>
     <h1>Użytkownicy</h1>
     <p>W tym module możesz zarządzać Użytkownikami</p>
-    <!-- <div @click="loadUsers" class="button">Załaduj dane<Icon class="icon" name="basil:add-solid" /></div> -->
     </div>
     <div class="data-container">
         <table class="blog-table">
@@ -23,17 +22,15 @@
   </thead>
   <tbody>
       <tr v-for="(item) in allUsers?.users" v-bind:key="item.id">
-      <td>{{item?.name}}</td>
+      <td>{{item?.name}}{{item.id}}</td>
       <td>{{item?.roles}}</td>
       <td>{{item?.firstname}}</td>
       <td>{{item?.lastname}}</td>
       <td>{{item?.phone}}</td>
       <td>{{item?.email}}</td>
       <td class="actions">
-              <!-- <Icon class="icon" color="#094c72;" name="material-symbols:visibility" /> -->
-              <Icon @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
-              <!-- <Icon class="icon" color="#c51e3a" name="material-symbols:delete" /> -->
-            </td> <!-- Komórki z akcjami -->
+      <Icon @click="openModal(item)" class="icon" color="#ee9626" name="material-symbols:edit" />
+            </td>
     </tr>
   </tbody>
   <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
