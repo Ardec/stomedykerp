@@ -15,7 +15,9 @@
           <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
           <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
           <li v-if="User.token"><NuxtLink  class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
+          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/usersui" @click="toggleMenu">Użytkownicy NEW</NuxtLink></li>
           <li v-if="User.token"><NuxtLink  class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
+          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/ustawieniaui" @click="toggleMenu">Ustawienia NEW</NuxtLink></li>
         </ul>
     </nav>
     </div>

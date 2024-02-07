@@ -33,7 +33,7 @@
             </td>
     </tr>
   </tbody>
-  <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
+  <UserModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
 </table>
 
     </div>
