@@ -3,6 +3,9 @@ export default () => {
   if (user.value?.token) {
     return user;
   } else {
-    return navigateTo('/logowanie');
+    const route = useRoute();
+    if (route.path !== '/logowanie') {
+      return navigateTo('/logowanie');
+    }
   }
 }

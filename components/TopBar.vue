@@ -7,7 +7,7 @@
 
 <script setup>
 const { menuVisible, toggleMenu } = useGlobalState();
-const User = useLoggedUser('loggedInUser');
+const User = useCookie('loggedInUser');
 </script>
 
 <style lang="scss" scoped>
