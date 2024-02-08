@@ -22,19 +22,19 @@
          <!-- {{ attrs.item }} -->
         <div class="inputs">
           <UFormGroup label="Nazwa użytkownika">
-          <UInput size="xl" v-model="newData.name" :placeholder="attrs.item.name" />
+          <UInput size="xl" v-model="newData.name" />
         </UFormGroup>
         <UFormGroup label="Imię">
-          <UInput size="xl" v-model="newData.firstname" :placeholder="attrs.item.firstname" />
+          <UInput size="xl" v-model="newData.firstname" />
         </UFormGroup>
         <UFormGroup label="Nazwisko">
-          <UInput size="xl" v-model="newData.lastname" :placeholder="attrs.item.lastname" />
+          <UInput size="xl" v-model="newData.lastname" />
         </UFormGroup>
         <UFormGroup label="Telefon">
-          <UInput size="xl" v-model="newData.phone" :placeholder="attrs.item.phone" />
+          <UInput size="xl" v-model="newData.phone" />
         </UFormGroup>
         <UFormGroup label="E-mail">
-          <UInput size="xl" v-model="newData.email" :placeholder="attrs.item.email" />
+          <UInput size="xl" v-model="newData.email" />
         </UFormGroup>
         <UFormGroup label="Nowe hasło" hint="Uwaga! Uzupełnienie tego pola nadpisze stare hasło.">
           <UInput size="xl" v-model="newData.plainPassword" placeholder="Podaj nowe hasło" />
