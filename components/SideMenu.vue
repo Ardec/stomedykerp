@@ -12,12 +12,12 @@
        <ul>
           <li><NuxtLink class="menu-item active" to="/" @click="toggleMenu">Home</NuxtLink></li>
           <li><NuxtLink  class="menu-item active" to="/info" @click="toggleMenu">Informacje</NuxtLink></li>
-          <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
-          <li v-if="!User.token"><NuxtLink  class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
-          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
-          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/usersui" @click="toggleMenu">Użytkownicy NEW</NuxtLink></li>
-          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
-          <li v-if="User.token"><NuxtLink  class="menu-item active" to="/ustawieniaui" @click="toggleMenu">Ustawienia NEW</NuxtLink></li>
+          <li v-if="!User?.token"><NuxtLink  class="menu-item active" to="/logowanie" @click="toggleMenu">Logowanie</NuxtLink></li>
+          <li v-if="!User?.token"><NuxtLink  class="menu-item active" to="/rejestracja" @click="toggleMenu">Rejestracja</NuxtLink></li>
+          <li v-if="User?.token"><NuxtLink  class="menu-item active" to="/users" @click="toggleMenu">Użytkownicy</NuxtLink></li>
+          <li v-if="User?.token"><NuxtLink  class="menu-item active" to="/usersui" @click="toggleMenu">Użytkownicy NEW</NuxtLink></li>
+          <li v-if="User?.token"><NuxtLink  class="menu-item active" to="/ustawienia" @click="toggleMenu">Ustawienia</NuxtLink></li>
+          <li v-if="User?.token"><NuxtLink  class="menu-item active" to="/ustawieniaui" @click="toggleMenu">Ustawienia NEW</NuxtLink></li>
         </ul>
     </nav>
     </div>
@@ -38,7 +38,7 @@
 import { useGlobalState } from '~/composables/useGlobalState';
 const { menuVisible, toggleMenu } = useGlobalState();
 const baseUrl = useBaseUrl();
-const User = useState('loggedInUser', () => ({}));
+const User = useCookie('loggedInUser');
 const isVisible = ref(true);
 const myInfo = useState('myInfo');
 

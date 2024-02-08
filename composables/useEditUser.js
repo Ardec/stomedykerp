@@ -1,5 +1,5 @@
 export const useEditUser = async (item) => {
-  const loggedUser = useState('loggedInUser');
+  const loggedUser = useLoggedUser();
 
     const baseUrl = useBaseUrl();
     try {
@@ -19,6 +19,9 @@ export const useEditUser = async (item) => {
           plainPassword: item.password,
         }
       });
+      if (error?.value?.statusCode === 401) {
+        return navigateTo('/logowanie');
+      }
       if (error.value) {
         throw new Error(error.value.message || 'Błąd podczas zmiany danych');
       }

@@ -1,5 +1,5 @@
 export const useLogout = async () => {
-    const loggedUser = useState('loggedInUser');
+    const loggedUser = useCookie('loggedInUser');
     console.log(loggedUser.value.email)
     console.log(loggedUser.value.token)
     const baseUrl = useBaseUrl();
@@ -26,7 +26,8 @@ export const useLogout = async () => {
         })
         throw new Error(error.value.message || 'Błąd podczas logowania');
       }
-      loggedUser.value = data.value.data.user;
+      loggedUser.value = null;
+      await navigateTo('/logowanie');
       toast.add({
         id: 'logout_success',
         title: 'Wylogowano Cię z aplikacji '+data.value.data.user.name+'!',

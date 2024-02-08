@@ -29,7 +29,6 @@ import { ref, reactive } from 'vue';
 const toast = useToast();
 const email = ref('');
 const plainPassword = ref('');
-const loggedUser = useState('loggedInUser');
 const loginData = reactive({
   email: email,
   plainPassword: plainPassword,
@@ -37,6 +36,7 @@ const loginData = reactive({
 
 const handleLogin2 = async () => {
   await useLogin(loginData.email, loginData.plainPassword);
+  await navigateTo('/info');
 };
 </script>
 

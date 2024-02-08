@@ -8,6 +8,9 @@ export const useLoadInfo = async (id) => {
           'Content-Type': 'application/json',
         },
       });
+      if (error?.value?.statusCode === 401) {
+        return navigateTo('/logowanie');
+      }
       if (error.value) {
         throw new Error(error.value.message || 'Błąd podczas pobierania danych');
       }

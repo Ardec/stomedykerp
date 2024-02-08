@@ -1,6 +1,6 @@
 // console.log("moj loggedUser w composables",loggedUser.value)
 export const useLoadUser = async () => {
-  const loggedUser = useState('loggedInUser');
+  const loggedUser = useLoggedUser();
   console.log("jestem w funkcji loggen inUser i to moj user", loggedUser.value.token )
     const baseUrl = useBaseUrl();
     try {
@@ -20,6 +20,9 @@ export const useLoadUser = async () => {
           email: null,
         }
       });
+      if (error?.value?.statusCode === 401) {
+        return navigateTo('/logowanie');
+      }
       if (error.value) {
         throw new Error(error.value.message || 'Błąd podczas pobierania danych');
       }

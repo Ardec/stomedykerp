@@ -1,5 +1,4 @@
 export const useLogin = async (email, plainPassword) => {
-    const User = useState('loggedInUser', () => ({}));
     const menuVisible = useState('menuVisible');
 
     const baseUrl = useBaseUrl();
@@ -26,8 +25,15 @@ export const useLogin = async (email, plainPassword) => {
         })
         throw new Error(error.value.message || 'Błąd podczas logowania');
       }
-      // Aktualizacja globalnego stanu użytkownika
-      User.value = data.value.data.user;
+      // Utworzenie lub aktualizacja cookie usera
+      const user = useCookie(
+        'loggedInUser',
+        {
+          default: () => (data.value.data.user),
+          watch: false
+        }
+      )
+      user.value = data.value.data.user;
       toast.add({
         id: 'success',
         title: 'Witaj '+data.value.data.user.name+'!',
