@@ -6,8 +6,9 @@
     :items="allInfos?.ownerInfos"
     :addNew="true"
     @edit="edit"
+    @delete="deleteItem"
     @add="add"></Table>
-    <InfosModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" @add-record="addRecord" />
+    <InfosModal v-if="isOpen" :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update="update"/>
 </template>
 
 <script setup>
@@ -62,9 +63,15 @@ const add = (item) => {
   selectedItem.value = {};
 };
 
-const updateRecord = async () => {
+const update = async () => {
   allInfos.value = await useLoadInfos();
 };
+
+const deleteItem = async (item) => {
+  await deleteInfo(item)
+  update();
+}
+
 </script>
 
 <style lang="scss" scoped></style>
