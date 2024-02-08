@@ -1,5 +1,5 @@
 export const useEditInfo = async (item) => {
-  const loggedUser = useState('loggedInUser');
+  const loggedUser = useLoggedUser();
   const baseUrl = useBaseUrl();
   try {
     const { data, error } = await useFetch(`https://${baseUrl}/owner/info/${item.id}/edit`, {
@@ -17,6 +17,9 @@ export const useEditInfo = async (item) => {
         logo: item.logo,
       }
     });
+    if (error?.value?.statusCode === 401) {
+      return navigateTo('/logowanie');
+    }
     if (error.value) {
       throw new Error(error.value.message || 'Błąd podczas zmiany danych');
     }

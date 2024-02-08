@@ -1,6 +1,6 @@
 export const useAddInfos = async (item) => {
     const baseUrl = useBaseUrl();
-    const loggedUser = useState('loggedInUser');
+    const loggedUser = useLoggedUser();
     try {
       const { data, error } = await useFetch(`https://${baseUrl}/owner/info/new`, {
         method: 'POST',
@@ -17,6 +17,9 @@ export const useAddInfos = async (item) => {
           logo:item.logo,
         }
       });
+      if (error?.value?.statusCode === 401) {
+        return navigateTo('/logowanie');
+      }
       if (error.value) {
         throw new Error(error.value.message || 'Błąd podczas pobierania danych');
       }

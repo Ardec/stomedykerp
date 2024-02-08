@@ -1,13 +1,13 @@
 <template>
   <div class="topbar">
     <div class="logo">K-ERP Base</div>
-    <div class="menu"><div v-if="User.token" class="logout"><Icon @click="useLogout" class="icon" name="material-symbols:logout"/><div class="user">Zalogowano jako: {{User.name}}</div></div><div class="menu-icon-container" @click="toggleMenu"><Icon class="icon" name="mdi:menu" /></div></div>
+    <div class="menu"><div v-if="User?.token" class="logout"><Icon @click="useLogout" class="icon" name="material-symbols:logout"/><div class="user">Zalogowano jako: {{User.name}}</div></div><div class="menu-icon-container" @click="toggleMenu"><Icon class="icon" name="mdi:menu" /></div></div>
   </div>
 </template>
 
 <script setup>
 const { menuVisible, toggleMenu } = useGlobalState();
-const User = useState('loggedInUser', () => ({}));
+const User = useLoggedUser('loggedInUser');
 </script>
 
 <style lang="scss" scoped>
