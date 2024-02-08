@@ -16,7 +16,7 @@ allInfos.value = useLoadInfo(1);
 </script>
 
 <template>
-  <div class="main-container">
+  <div>
     <ClientOnly>
       <div></div>
     </ClientOnly>
@@ -34,19 +34,10 @@ body {
   background-color: $background;
   font-family: "Inter", sans-serif;
   margin: 0 auto;
-  display: flex;
 }
 .logo-container {
   display: flex;
   justify-content: center; // Wyśrodkowanie w poziomie
   align-items: center; // Wyśrodkowanie w pionie
-}
-.main-container {
-  display: flex;
-  flex-direction: column; // Elementy ułożone pionowo
-  justify-content: center; // Wyśrodkowanie w pionie
-  align-items: center; // Wyśrodkowanie w poziomie
-  height: 100%;
-  width: 100vw;
 }
 </style>
