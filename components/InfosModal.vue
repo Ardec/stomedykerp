@@ -21,18 +21,17 @@
         <div class="inputs">
           <!-- {{newData}} -->
           <UFormGroup label="Nazwa użytkownika">
-            <UInput size="xl" v-model="newData.name" :placeholder="attrs.item.name" />
+            <UInput size="xl" v-model="newData.name" />
           </UFormGroup>
           <UFormGroup label="Telefon">
-            <UInput size="xl" v-model="newData.phone" :placeholder="attrs.item.phone" />
+            <UInput size="xl" v-model="newData.phone" />
           </UFormGroup>
           <UFormGroup label="E-mail">
-            <UInput size="xl" v-model="newData.email" :placeholder="attrs.item.email" />
+            <UInput size="xl" v-model="newData.email"/>
           </UFormGroup>
           <UFormGroup label="krótki opis">
             <UTextarea
               v-model="newData.shortDescription"
-              :placeholder="attrs.item.shortDescription"
               autoresize
             />
           </UFormGroup>
@@ -44,11 +43,10 @@
             />
           </UFormGroup>
           <UFormGroup label="logo">
-            <UInput size="xl" v-model="newData.logo" :placeholder="attrs.item.logo" />
+            <UInput size="xl" v-model="newData.logo" />
           </UFormGroup>
           <div class="bottom-buttons">
-            <UButton v-if="!attrs.item.id" @click="addInfo(newData)" size="xl">Dodaj nowy</UButton>
-            <UButton v-if="attrs.item.id" @click="editInfo(newData)" size="xl">Zapisz</UButton>
+            <UButton @click="editInfo(newData)" size="xl">Zapisz</UButton>
             <UButton @click="closeModal()" size="xl" color="orange">Anuluj</UButton>
           </div>
         </div>
@@ -58,9 +56,9 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["close-modal", "update-record", "add-record"]);
+const emit = defineEmits(["close-modal", "update"]);
 const attrs = useAttrs();
-let newData = ref({});
+let newData = ref({...attrs.item});
 let isOpen = ref(false);
 isOpen = computed(() => attrs.isOpen);
 
@@ -69,22 +67,10 @@ function closeModal() {
   newData.value = {};
 }
 
-const addInfo = async (data) => {
-   try {
-    const newInfoData = await useAddInfos(data);
-    emit("add-record", newInfoData);
-    newData.value = {};
-    emit("close-modal");
-  } catch (error) {
-    console.error("Wystąpił błąd podczas edycji użytkownika:", error);
-  }
-}
-
 const editInfo = async (newData) => {
   try {
-    newData.id = attrs.item.id;
     const editedInfoData = await useEditInfo(newData);
-    emit("update-record", editedInfoData);
+    emit("update");
     emit("close-modal");
   } catch (error) {
     console.error("Wystąpił błąd podczas edycji użytkownika:", error);

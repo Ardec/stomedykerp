@@ -37,7 +37,7 @@
           <UInput size="xl" v-model="newData.email" :placeholder="attrs.item.email" />
         </UFormGroup>
         <UFormGroup label="Nowe hasło" hint="Uwaga! Uzupełnienie tego pola nadpisze stare hasło.">
-          <UInput size="xl" v-model="newData.password" placeholder="Podaj nowe hasło" />
+          <UInput size="xl" v-model="newData.plainPassword" placeholder="Podaj nowe hasło" />
         </UFormGroup>
         <UFormGroup label="Aktualna Rola">
           <USelect
@@ -50,7 +50,7 @@
            <!-- <USelectMenu v-model="selected" :options="people" multiple placeholder="Sprawdź role" /> -->
         </UFormGroup>
         <UFormGroup label="Nowe Role">
-           <USelectMenu size="xl" v-model="selected" :options="roles" multiple placeholder="Nowe role dla użytkownika" />
+           <USelectMenu size="xl" v-model="newData.roles" :options="roles" multiple placeholder="Nowe role dla użytkownika" />
           </UFormGroup>
         <div class="bottom-buttons">
         <UButton @click="editUser(newData)" size="xl">Zapisz zmiany</UButton>
@@ -65,10 +65,11 @@
 
 <script setup>
 const roles = ['ROLE_SUPER_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER', 'ROLE_CLIENT']
-const selected = ref([])
-const emit = defineEmits(["close-modal","update-record"]);
+
+const emit = defineEmits(["close-modal","update"]);
 const attrs = useAttrs();
-let newData = ref({});
+
+const newData = ref({roles: [], ...attrs.item});
 let isOpen = ref(false);
 isOpen = computed(() => attrs.isOpen);
 
@@ -84,10 +85,8 @@ function closeModal() {
 
 const editUser = async (newData) => {
   try {
-    newData.role = selected
-    newData.id = attrs.item.id
     const newUserData = await useEditUser(newData);
-    emit("update-record", newUserData);
+    emit("update");
     emit("close-modal");
   } catch (error) {
     console.error('Wystąpił błąd podczas edycji użytkownika:', error);

@@ -3,9 +3,12 @@
     title="Użytkownicy"
     description="W tym module możesz zarządzać Użytkownikami"
     :columns="columns"
+    :addNew="true"
     :items="allUsers.users"
-    @edit="edit"></Table>
-    <UserModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
+    @edit="edit"
+    @delete="deleteItem"
+    @add="add"></Table>
+    <UserModal v-if="isOpen" :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update="update"/>
 </template>
 
 <script setup>
@@ -55,8 +58,18 @@ const edit = (item) => {
   selectedItem.value = item;
 }
 
-const updateRecord = async () => {
+const add = (item) => {
+  isOpen.value = true;
+  selectedItem.value = {};
+};
+
+const update = async () => {
   allUsers.value = await useLoadUser();
+}
+
+const deleteItem = async (item) => {
+  await deleteUser(item)
+  update();
 }
 </script>
 

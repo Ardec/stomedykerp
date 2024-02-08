@@ -25,24 +25,9 @@ const items = (item) => [
       click: () => emit('edit', item),
     },
     {
-      label: 'Duplicate',
-      icon: 'i-heroicons-document-duplicate-20-solid',
-    },
-  ],
-  [
-    {
-      label: 'Archive',
-      icon: 'i-heroicons-archive-box-20-solid',
-    },
-    {
-      label: 'Move',
-      icon: 'i-heroicons-arrow-right-circle-20-solid',
-    },
-  ],
-  [
-    {
       label: 'Delete',
       icon: 'i-heroicons-trash-20-solid',
+      click: () => emit('delete', item),
     },
   ],
 ];

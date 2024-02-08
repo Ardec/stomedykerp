@@ -3,20 +3,16 @@ export const useEditUser = async (item) => {
 
     const baseUrl = useBaseUrl();
     try {
-      const { data, error } = await useFetch(`https://${baseUrl}/user/${item.id}/edit`, {
+      ;
+      const url = item.id ? `https://${baseUrl}/user/${item.id}/edit`: `https://${baseUrl}/user/new`
+      const { data, error } = await useFetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: {
-          token: loggedUser.value.token,
-          roles: item.role,
-          name: item.name,
-          firstname: item.firstname,
-          lastname: item.lastname,
-          phone: item.phone,
-          email: item.email,
-          plainPassword: item.password,
+          ...item,
+          token: loggedUser.value.token
         }
       });
       if (error?.value?.statusCode === 401) {
@@ -28,6 +24,33 @@ export const useEditUser = async (item) => {
       return data.value.data
     } catch (err) {
       console.error('Błąd zmiany danych:', err.message);
+      throw err;
+    }
+  };
+
+  export const deleteUser = async (item) => {
+    const loggedUser = useLoggedUser();
+    const baseUrl = useBaseUrl();
+    try {
+      const url = `https://${baseUrl}/user/${item.id}/delete`
+      const { data, error } = await useFetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+          token: loggedUser.value.token
+        }
+      });
+      if (error?.value?.statusCode === 401) {
+        return navigateTo('/logowanie');
+      }
+      if (error.value) {
+        throw new Error(error.value.message || 'Błąd podczas usuwania danych');
+      }
+      return data.value.data
+    } catch (err) {
+      console.error('Błąd usuwania danych:', err.message);
       throw err;
     }
   };
