@@ -73,6 +73,7 @@ const handleLogin2 = async () => {
   align-items: center;
   min-height: 80vh; /* Ustawia wysokość kontenera na 100% widocznej wysokości ekranu */
   text-align: center; /* Wyśrodkowanie tekstu dla wszystkich elementów wewnątrz kontenera */
+  margin: auto;
 
   h1 {
     align-self: flex-start;

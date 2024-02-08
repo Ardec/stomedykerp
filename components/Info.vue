@@ -50,6 +50,7 @@
 .core-container{
     padding:20px;
     max-width:640px;
+    margin: auto;
 }
 p {
     line-height: 1.6rem;

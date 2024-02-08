@@ -1,17 +1,13 @@
 <template>
-  <div class="main-container">
+  <div>
     <TopBar :leftIcon="true" :rightIcon="false" />
     <SideMenu />
-    <slot />
+    <div class="p-2">
+      <slot />
+    </div>
   </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="scss" scoped>
-.main-container {
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

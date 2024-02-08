@@ -37,8 +37,5 @@ const add = () => {
 };
 </script>
 <style lang="scss" scoped>
-.table-container {
-  width: 100%;
-  padding: 0px 30px;
-}
+
 </style>
