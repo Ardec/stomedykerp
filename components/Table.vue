@@ -3,7 +3,7 @@
     <h1>{{ $attrs.title }}</h1>
     <p>{{ $attrs.description }}</p>
     <div class="m-3" v-if="$attrs.addNew">
-      <UButton label="Dodaj nowe" @click="add" icon="i-heroicons-pencil-square" />
+      <UButton label="Dodaj" @click="add" icon="i-heroicons-pencil-square" />
     </div>
     <UTable :columns="$attrs.columns" :rows="$attrs.items" :ui="{ td: { base: 'max-w-[0] truncate' } }">
       <template #actions-data="{ row }">
