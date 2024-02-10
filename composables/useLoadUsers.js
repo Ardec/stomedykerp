@@ -1,5 +1,5 @@
 // console.log("moj loggedUser w composables",loggedUser.value)
-export const useLoadUser = async () => {
+export const useLoadUser = async (page) => {
   const loggedUser = useLoggedUser();
   console.log("jestem w funkcji loggen inUser i to moj user", loggedUser.value.token )
     const baseUrl = useBaseUrl();
@@ -11,7 +11,7 @@ export const useLoadUser = async () => {
         },
         body: {
           token: loggedUser.value.token,
-          page:null,
+          page: page ? page: null,
           limit:null,
           name: null,
           firstname: null,

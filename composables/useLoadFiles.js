@@ -1,4 +1,4 @@
-export const useLoadFiles = async () => {
+export const useLoadFiles = async (page) => {
   const user = useLoggedUser();
   if (user) {
     const baseUrl = useBaseUrl();
@@ -10,7 +10,7 @@ export const useLoadFiles = async () => {
         },
         body: {
           token: user?.value?.token,
-          page: null,
+          page: page ? page: null,
           limit: null,
           name: null
         }

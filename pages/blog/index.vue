@@ -7,7 +7,7 @@
   </div>
 </template>
 <script setup>
-const data = await useLoadArticles(true);
+const data = await useLoadArticles({published: true});
 
 const formatDate = (date) => {
   return date.split(' ')[0];
