@@ -5,9 +5,11 @@
     :addNew="true"
     :columns="columns"
     :items="data.articles"
+    :count="data.count"
     @edit="edit"
     @add="add"
-    @delete="deleteItem"></Table>
+    @delete="deleteItem"
+    @paginate="paginate"></Table>
 </template>
 
 <script setup>
@@ -84,6 +86,10 @@ const deleteItem = async (item) => {
   await deleteArticle(item);
   data.value = await useLoadArticles();
 };
+
+const paginate = async (page) => {
+  data.value = await useLoadArticles({page});
+}
 </script>
 
 <style lang="scss" scoped></style>

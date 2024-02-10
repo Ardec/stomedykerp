@@ -5,9 +5,11 @@
     :columns="columns"
     :addNew="true"
     :items="allUsers.users"
+    :count="allUsers.count"
     @edit="edit"
     @delete="deleteItem"
-    @add="add"></Table>
+    @add="add"
+    @paginate="paginate"></Table>
     <UserModal v-if="isOpen" :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update="update"/>
 </template>
 
@@ -65,6 +67,10 @@ const add = (item) => {
 
 const update = async () => {
   allUsers.value = await useLoadUser();
+}
+
+const paginate = async (page) => {
+  allUsers.value = await useLoadUser(page);
 }
 
 const deleteItem = async (item) => {

@@ -1,4 +1,4 @@
-export const useLoadArticles = async (published) => {
+export const useLoadArticles = async (filters) => {
   const baseUrl = useBaseUrl();
   const loggedUser = useLoggedUser();
   try {
@@ -9,13 +9,13 @@ export const useLoadArticles = async (published) => {
       },
       body: {
         //token: loggedUser.value.token, // 'irZ9NLgXFsbdA5kxYsAM2Xgn6RikZ4Mw',
-        page: null,
+        page: filters?.page,
         limit: null,
         title: null,
         category: null,
         intro: null,
         content: null,
-        published: published,
+        published: filters?.published,
         featured: null,
         author: null,
         seoTitle: null,

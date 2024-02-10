@@ -4,9 +4,7 @@
       <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
         <template #header>
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-              Edycja użytkownika - {{ $attrs?.item.name }}
-            </h3>
+            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Upload pliku</h3>
             <UButton
               color="gray"
               variant="ghost"
@@ -16,49 +14,73 @@
           </div>
         </template>
         <Placeholder class="h-32" />
-        <!-- {{ attrs.item }} -->
-        <div class="inputs">
-          <UFormGroup label="Nazwa">
-            <UInput size="xl" v-model="newData.name" />
-          </UFormGroup>
-          <UFormGroup label="Opis">
-            <UInput size="xl" v-model="newData.description" />
-          </UFormGroup>
-          <div class="bottom-buttons">
-            <UButton @click="editUser(newData)" size="xl">Zapisz zmiany</UButton>
-            <UButton @click="closeModal()" size="xl" color="orange">Anuluj</UButton>
+        <UForm :validate="validate" :state="state" @submit="save(newData)">
+          <input
+            class="q-ma-sm"
+            type="file"
+            id="upload_file_file"
+            @change="handleFileChange"
+            name="upload_file[file][]"
+            multiple />
+          <UButton type="submit" size="xl">Zapisz zmiany</UButton>
+        </UForm>
+        <!-- <form name="upload_file" :action="uploadFileUrl" method="post" enctype="multipart/form-data">
+          <div>
+            <input class="q-ma-sm" type="file" id="upload_file_file" name="upload_file[file][]" multiple />
+            
+            <input
+              class="q-ma-sm hidden"
+              type="number"
+              id="authorId"
+              name="upload_file[authorId]"
+              :value="loggedUser?.id" />
+            <input class="q-ma-sm hidden" type="text" id="token" name="upload_file[token]" :value="loggedUser?.token" />
           </div>
-        </div>
+          <div>
+            <button class="q-ma-sm" type="submit">Załaduj na serwer</button>
+          </div>
+        </form> -->
       </UCard>
     </UModal>
   </div>
 </template>
 
 <script setup>
-const selected = ref([]);
-const emit = defineEmits(['close-modal', 'update-record']);
+const baseUrl = useBaseUrl();
+const state = reactive({});
+const uploadFileUrl = ref(`https://${baseUrl}/file/upload`);
+const emit = defineEmits(['close-modal', 'update']);
 const attrs = useAttrs();
-let newData = ref({ ...attrs.item });
 let isOpen = ref(false);
+const newData = ref({});
 isOpen = computed(() => attrs.isOpen);
+const loggedUser = useCookie('loggedInUser');
+let selectedFile;
 
 function closeModal() {
   emit('close-modal');
 }
-// function editUser(newData) {
-//   newData.id = attrs.item.id
-//   useEditUser(newData);
-//   emit("close-modal");
-//   emit("update-record");
-// }
 
-const editUser = async (newData) => {
+const handleFileChange = (event) => {
+  selectedFile = event.target.files[0];
+};
+
+const save = async (newData) => {
   try {
-    newData.role = selected;
-    newData.id = attrs.item.id;
-    const newUserData = await useEditUser(newData);
-    emit('update-record', newUserData);
-    emit('close-modal');
+    const formData = new FormData();
+    console.log(selectedFile)
+    formData.append('upload_file[file][]', selectedFile);
+    formData.append('upload_file[authorId]', loggedUser?.value.id);
+    formData.append('upload_file[token]', loggedUser?.value.token);
+
+    console.log(formData);
+    const { data, error } = await useLazyFetch(uploadFileUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    });
   } catch (error) {
     console.error('Wystąpił błąd podczas edycji użytkownika:', error);
   }

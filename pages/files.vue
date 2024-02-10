@@ -25,9 +25,11 @@
     description="W tym module możesz zarządzać plikami"
     :addNew="true"
     :columns="columns"
-    :items="allUsers?.users"
+    :items="files?.files"
+    :count="files.count"
     @edit="edit"
-    @add="add"></Table>
+    @add="add"
+    @paginate="paginate"></Table>
   <FileModal
     :item="selectedItem"
     :isOpen="isOpen"
@@ -72,8 +74,8 @@ const columns = [
   },
 ];
 
-const allUsers = ref([]);
-allUsers.value = await useLoadFiles();
+const files = ref([]);
+files.value = await useLoadFiles();
 let isOpen = ref(false);
 let selectedItem = ref({});
 
@@ -88,8 +90,12 @@ const add = (item) => {
 };
 
 const updateRecord = async () => {
-  allUsers.value = await useLoadFiles();
+  files.value = await useLoadFiles();
 };
+
+const paginate = async (page) => {
+  files.value = await useLoadFiles(page);
+}
 </script>
 
 <style lang="scss" scoped></style>

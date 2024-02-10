@@ -12,11 +12,14 @@
         </UDropdown>
       </template>
     </UTable>
-    <ShowModal :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update-record="updateRecord" />
+    <div class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
+      <UPagination v-model="page" :page-count="10" :total="$attrs.count" />
+    </div>
   </div>
 </template>
 <script setup>
-const emit = defineEmits(['edit', 'add']);
+const emit = defineEmits(['edit', 'add', 'paginate']);
+const page = ref(1);
 const items = (item) => [
   [
     {
@@ -35,7 +38,12 @@ const items = (item) => [
 const add = () => {
   emit('add');
 };
-</script>
-<style lang="scss" scoped>
 
-</style>
+watch(
+  page,
+  (newVal, oldVal) => {
+    emit('paginate', newVal);
+  },
+);
+</script>
+<style lang="scss" scoped></style>
