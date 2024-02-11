@@ -4,7 +4,9 @@
       <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
         <template #header>
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Upload pliku</h3>
+            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+              {{ !$attrs.item?.id ? 'Upload pliku}' : 'Edycja pliku' }}
+            </h3>
             <UButton
               color="gray"
               variant="ghost"
@@ -14,32 +16,34 @@
           </div>
         </template>
         <Placeholder class="h-32" />
-        <UForm :validate="validate" :state="state" @submit="save(newData)">
-          <input
+        <UForm v-if="!$attrs.item?.id" id="form" :validate="validate" :state="state" @submit="save()">
+          <UInput
             class="q-ma-sm"
             type="file"
             id="upload_file_file"
             @change="handleFileChange"
             name="upload_file[file][]"
             multiple />
-          <UButton type="submit" size="xl">Zapisz zmiany</UButton>
+          <UButton type="submit" size="xl" class="mt-2">Zapisz</UButton>
         </UForm>
-        <!-- <form name="upload_file" :action="uploadFileUrl" method="post" enctype="multipart/form-data">
-          <div>
-            <input class="q-ma-sm" type="file" id="upload_file_file" name="upload_file[file][]" multiple />
-            
-            <input
-              class="q-ma-sm hidden"
-              type="number"
-              id="authorId"
-              name="upload_file[authorId]"
-              :value="loggedUser?.id" />
-            <input class="q-ma-sm hidden" type="text" id="token" name="upload_file[token]" :value="loggedUser?.token" />
+        <UForm v-if="$attrs.item?.id" :validate="validate" :state="state" @submit="edit(newData)">
+          <div class="flex justify-center">
+            <img class="img-preview" :src="'https://' + baseUrl + '/' + $attrs.item.path" />
           </div>
-          <div>
-            <button class="q-ma-sm" type="submit">Załaduj na serwer</button>
+          <UFormGroup label="Nazwa">
+            <UInput size="xl" v-model="newData.name" required="true" />
+          </UFormGroup>
+          <UFormGroup label="Opis">
+            <UInput size="xl" v-model="newData.description" />
+          </UFormGroup>
+          <UFormGroup label="Typ">
+            <UInput size="xl" v-model="newData.type" />
+          </UFormGroup>
+          <div class="bottom-buttons">
+            <UButton type="submit" size="xl">Zapisz zmiany</UButton>
+            <UButton @click="closeModal()" size="xl" color="orange">Anuluj</UButton>
           </div>
-        </form> -->
+        </UForm>
       </UCard>
     </UModal>
   </div>
@@ -52,7 +56,7 @@ const uploadFileUrl = ref(`https://${baseUrl}/file/upload`);
 const emit = defineEmits(['close-modal', 'update']);
 const attrs = useAttrs();
 let isOpen = ref(false);
-const newData = ref({});
+const newData = ref({ ...attrs.item });
 isOpen = computed(() => attrs.isOpen);
 const loggedUser = useCookie('loggedInUser');
 let selectedFile;
@@ -63,39 +67,51 @@ function closeModal() {
 
 const handleFileChange = (event) => {
   selectedFile = event.target.files[0];
+
+  const fileReader = new FileReader();
+  fileReader.onload = async (loadEvent) => {
+    arrayBuffer = loadEvent.target.result;
+  };
+
+  fileReader.readAsDataURL(selectedFile);
 };
 
-const save = async (newData) => {
+const save = async () => {
   try {
     const formData = new FormData();
-    console.log(selectedFile)
     formData.append('upload_file[file][]', selectedFile);
     formData.append('upload_file[authorId]', loggedUser?.value.id);
     formData.append('upload_file[token]', loggedUser?.value.token);
-
-    console.log(formData);
-    const { data, error } = await useLazyFetch(uploadFileUrl, {
+    const { data, error } = await useFetch(uploadFileUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: {},
       body: formData,
     });
+  } catch (error) {
+    console.error('Wystąpił błąd:', error);
+  }
+};
+
+const edit = async (newData) => {
+  try {
+    const newUserData = await useEditFile(newData);
+    emit('update');
+    emit('close-modal');
   } catch (error) {
     console.error('Wystąpił błąd podczas edycji użytkownika:', error);
   }
 };
 </script>
 <style lang="scss" scoped>
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 .bottom-buttons {
   padding-top: 24px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.img-preview {
+  max-width: 400px;
+  max-height: 400px;
 }
 </style>
