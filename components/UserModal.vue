@@ -75,7 +75,6 @@ const roles = ['ROLE_SUPER_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER', 'ROLE_CLIENT']
 
 const emit = defineEmits(['close-modal', 'update']);
 const attrs = useAttrs();
-
 const newData = ref({ roles: [], ...attrs.item });
 let isOpen = ref(false);
 isOpen = computed(() => attrs.isOpen);
@@ -83,12 +82,6 @@ isOpen = computed(() => attrs.isOpen);
 function closeModal() {
   emit('close-modal');
 }
-// function editUser(newData) {
-//   newData.id = attrs.item.id
-//   useEditUser(newData);
-//   emit("close-modal");
-//   emit("update-record");
-// }
 
 const editUser = async (newData) => {
   try {

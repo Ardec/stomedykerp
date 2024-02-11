@@ -72,6 +72,7 @@ const columns = [
 ];
 
 const data = ref([]);
+const page = ref(null);
 data.value = await useLoadArticles();
 
 const edit = async (item) => {
@@ -84,10 +85,11 @@ const add = async () => {
 
 const deleteItem = async (item) => {
   await deleteArticle(item);
-  data.value = await useLoadArticles();
+  data.value = await useLoadArticles(page.value);
 };
 
-const paginate = async (page) => {
+const paginate = async (p) => {
+  page.value = p
   data.value = await useLoadArticles({page});
 }
 </script>

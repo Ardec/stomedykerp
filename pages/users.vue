@@ -9,8 +9,9 @@
     @edit="edit"
     @delete="deleteItem"
     @add="add"
-    @paginate="paginate"></Table>
-    <UserModal v-if="isOpen" :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update="update"/>
+    @paginate="paginate"
+    :disabledRow = "disabledRow"></Table>
+  <UserModal v-if="isOpen" :item="selectedItem" :isOpen="isOpen" @close-modal="isOpen = false" @update="update" />
 </template>
 
 <script setup>
@@ -53,12 +54,13 @@ const columns = [
 const allUsers = ref([]);
 allUsers.value = await useLoadUser();
 let isOpen = ref(false);
+const page = ref(null);
 let selectedItem = ref({});
 
 const edit = (item) => {
   isOpen.value = true;
   selectedItem.value = item;
-}
+};
 
 const add = (item) => {
   isOpen.value = true;
@@ -66,17 +68,22 @@ const add = (item) => {
 };
 
 const update = async () => {
-  allUsers.value = await useLoadUser();
-}
+  allUsers.value = await useLoadUser(page.value);
+};
 
-const paginate = async (page) => {
+const paginate = async (p) => {
+  page.value = p;
   allUsers.value = await useLoadUser(page);
-}
+};
 
 const deleteItem = async (item) => {
-  await deleteUser(item)
+  await deleteUser(item);
   update();
-}
+};
+
+const disabledRow = (row) => {
+  return row?.name === 'super_admin';
+};
 </script>
 
 <style lang="scss" scoped></style>

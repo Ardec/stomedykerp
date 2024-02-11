@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <h1>{{ $attrs.title }}</h1>
+    <h1>{{ $attrs.title }} <span v-if="$attrs.count">({{ $attrs.count }})</span></h1>
     <p>{{ $attrs.description }}</p>
     <div class="m-3" v-if="$attrs.addNew">
       <UButton label="Dodaj" @click="add" icon="i-heroicons-pencil-square" />
@@ -13,24 +13,27 @@
       </template>
     </UTable>
     <div class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
-      <UPagination v-model="page" :page-count="10" :total="$attrs.count" />
+      <UPagination v-if="$attrs.count" v-model="page" :page-count="10" :total="$attrs.count" />
     </div>
   </div>
 </template>
 <script setup>
 const emit = defineEmits(['edit', 'add', 'paginate']);
 const page = ref(1);
+const attrs = useAttrs();
 const items = (item) => [
   [
     {
       label: 'Edit',
       icon: 'i-heroicons-pencil-square-20-solid',
       click: () => emit('edit', item),
+      disabled: attrs?.disabledRow ? attrs.disabledRow(item): false,
     },
     {
       label: 'Delete',
       icon: 'i-heroicons-trash-20-solid',
       click: () => emit('delete', item),
+      disabled: attrs?.disabledRow ? attrs.disabledRow(item): false,
     },
   ],
 ];
