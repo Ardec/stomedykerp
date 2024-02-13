@@ -23,9 +23,9 @@
     </nav>
     </div>
     <div class="partners">
-       <p><b>{{myInfo.name}}</b><br />{{myInfo.phone}}<br />{{myInfo.email}}</p>
-       <p>{{myInfo.shortDescription}}</p>
-       <p>{{myInfo.longDescription}}</p>
+       <p><b>{{myInfo?.name}}</b><br />{{myInfo?.phone}}<br />{{myInfo?.email}}</p>
+       <p>{{myInfo?.shortDescription}}</p>
+       <p>{{myInfo?.longDescription}}</p>
        <p>Dowiedz się więcej na <br /><a href="https://k-development.pl">k-development.pl</a></p>
       <div class="description">
       </div>
