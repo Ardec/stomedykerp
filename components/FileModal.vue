@@ -5,7 +5,7 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-              {{ !$attrs.item?.id ? 'Upload pliku}' : 'Edycja pliku' }}
+              {{ !$attrs.item?.id ? 'Upload pliku' : 'Edycja pliku' }}
             </h3>
             <UButton
               color="gray"
@@ -67,13 +67,6 @@ function closeModal() {
 
 const handleFileChange = (event) => {
   selectedFile = event.target.files[0];
-
-  const fileReader = new FileReader();
-  fileReader.onload = async (loadEvent) => {
-    arrayBuffer = loadEvent.target.result;
-  };
-
-  fileReader.readAsDataURL(selectedFile);
 };
 
 const save = async () => {
