@@ -40,7 +40,6 @@ export const useLoadInfo = async (id) => {
     return data?.value?.data
   } catch (err) {
     console.error('Błąd pobierania danych:', err.message);
-    throw err;
   }
 };
 
