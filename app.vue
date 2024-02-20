@@ -11,20 +11,7 @@ useHead({
 import { onMounted, ref } from 'vue';
 let allInfos = ref({}); // Inicjalizacja stanu użytkowników jako null
 
-// allInfos.value = useLoadInfo(1);
-allInfos.value = {
-  ownerInfo: {
-    id: 1,
-    name: 'K-ERP Kamil Kaczmarczyk',
-    phone: '508786884',
-    email: 'kamil.kaczmarczyk.box@gmail.com',
-    shortDescription:
-      'Wybr\u00f3buj narz\u0119dzie do zarz\u0105dzania firm\u0105, kt\u00f3re korzysta z najnowszych technologii i rozwijaj je w dowolnym kierunku.',
-    longDescription:
-      'Niezale\u017cnie od tego czy chcesz zbudowa\u0107 w\u0142asn\u0105 stron\u0119 internetow\u0105 z wbudowanym CSM, system ERP czy Kalkulator produktu, to rozwi\u0105zanie jest dla Ciebie doskona\u0142ym punktem startowym.',
-    logo: null,
-  },
-};
+ allInfos.value = useLoadInfo(1);
 </script>
 
 <template>
