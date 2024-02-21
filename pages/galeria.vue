@@ -4,6 +4,7 @@
             <button class="button secondary-color-background" @click="option = true">Personel</button>
             <button class="button secondary-color-background" @click="option = false">Gabinety</button>
         </div>
+        <span v-if="User?.token">(<NuxtLink to="/employees"> Edycja </NuxtLink>)</span>
         <Persons v-if="option" />
         <Gabinety v-if="!option" />
     </div>
@@ -12,7 +13,7 @@
 <script setup>
 import { ref } from 'vue'
 let option = ref(true);
-
+const User = useCookie('loggedInUser');
 </script>
 
 <style scoped >

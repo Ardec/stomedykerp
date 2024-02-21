@@ -148,4 +148,9 @@ img, svg, video, canvas, audio, iframe, embed, object {
     box-sizing: content-box;
 }
 
+a:hover {
+  opacity: 0.8;
+  color: #01a8cb;
+}
+
 </style>
