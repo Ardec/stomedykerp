@@ -55,8 +55,4 @@ const preserveNewlines = (text) => {
   margin: 40px 0px;
 }
 
-a:hover {
-  opacity: 0.8;
-  color: #01a8cb;
-}
 </style>
