@@ -1,4 +1,5 @@
 <template>
+  <div class="p-3">
   <Table
     title="Blog"
     description="W tym module możesz zarządzać blogiem"
@@ -10,6 +11,7 @@
     @add="add"
     @delete="deleteItem"
     @paginate="paginate"></Table>
+  </div>
 </template>
 
 <script setup>
@@ -19,7 +21,6 @@ const columns = [
   {
     key: 'title',
     label: 'Tytuł',
-    sortable: true,
   },
   {
     key: 'category',
@@ -28,7 +29,6 @@ const columns = [
   {
     key: 'intro',
     label: 'Wprowadzenie',
-    sortable: true,
   },
   // {
   //   key: 'content',
@@ -38,32 +38,26 @@ const columns = [
   {
     key: 'published',
     label: 'Opublikowany',
-    sortable: true,
   },
   {
     key: 'featured',
     label: 'Wyróżniony',
-    sortable: true,
   },
   {
     key: 'author.name',
     label: 'Autor',
-    sortable: true,
   },
   {
     key: 'seoTitle',
     label: 'Seo tytuł',
-    sortable: true,
   },
   {
     key: 'seoMetaName',
     label: 'Seo nazwa',
-    sortable: true,
   },
   {
     key: 'seoMetaContent',
     label: 'Seo Treść',
-    sortable: true,
   },
   {
     key: 'actions',

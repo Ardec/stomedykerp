@@ -1,6 +1,8 @@
 <template>
-  <div class="table-container">
-    <h1>{{ $attrs.title }} <span v-if="$attrs.count">({{ $attrs.count }})</span></h1>
+  <div class="table-container erp-table">
+    <h1>
+      {{ $attrs.title }} <span v-if="$attrs.count">({{ $attrs.count }})</span>
+    </h1>
     <p>{{ $attrs.description }}</p>
     <div class="m-3" v-if="$attrs.addNew">
       <UButton label="Dodaj" @click="add" icon="i-heroicons-pencil-square" />
@@ -27,13 +29,13 @@ const items = (item) => [
       label: 'Edit',
       icon: 'i-heroicons-pencil-square-20-solid',
       click: () => emit('edit', item),
-      disabled: attrs?.disabledRow ? attrs.disabledRow(item): false,
+      disabled: attrs?.disabledRow ? attrs.disabledRow(item) : false,
     },
     {
       label: 'Delete',
       icon: 'i-heroicons-trash-20-solid',
       click: () => emit('delete', item),
-      disabled: attrs?.disabledRow ? attrs.disabledRow(item): false,
+      disabled: attrs?.disabledRow ? attrs.disabledRow(item) : false,
     },
   ],
 ];
@@ -42,11 +44,16 @@ const add = () => {
   emit('add');
 };
 
-watch(
-  page,
-  (newVal, oldVal) => {
-    emit('paginate', newVal);
-  },
-);
+watch(page, (newVal, oldVal) => {
+  emit('paginate', newVal);
+});
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+.erp-table {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+}
+</style>

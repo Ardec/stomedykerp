@@ -1,6 +1,5 @@
 export const useLoadArticles = async (filters) => {
   const baseUrl = useBaseUrl();
-  const loggedUser = useLoggedUser();
   try {
     const { data, error } = await useFetch(`https://${baseUrl}/article/`, {
       method: 'POST',
@@ -8,7 +7,6 @@ export const useLoadArticles = async (filters) => {
         'Content-Type': 'application/json',
       },
       body: {
-        //token: loggedUser.value.token, // 'irZ9NLgXFsbdA5kxYsAM2Xgn6RikZ4Mw',
         page: filters?.page,
         limit: null,
         title: null,
