@@ -41,7 +41,7 @@ if (oldCookie) {
 
 const handleLogin2 = async () => {
   await useLogin(loginData.email, loginData.plainPassword);
-  await navigateTo('/info');
+  await navigateTo('/');
 };
 </script>
 

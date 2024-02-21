@@ -11,7 +11,7 @@
       </div>
     </template>
     <Placeholder class="h-32" />
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 erp-form">
       <UFormGroup label="Tytuł">
         <UInput size="xl" v-model="newData.title" />
       </UFormGroup>
@@ -82,6 +82,16 @@ const cancel = async () => {
     flex-direction: column;
     place-items: center;
     width: 100%;
+  }
+}
+</style>
+
+<style lang="scss">
+.erp-form {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
   }
 }
 </style>
