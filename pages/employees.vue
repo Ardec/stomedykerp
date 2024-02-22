@@ -6,7 +6,6 @@
       :columns="columns"
       :addNew="true"
       :items="allUsers.employees"
-      :count="allUsers.employees?.length"
       @edit="edit"
       @delete="deleteItem"
       @add="add"
