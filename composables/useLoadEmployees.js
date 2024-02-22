@@ -1,5 +1,4 @@
 export const useLoadEmployees = async (page) => {
-  const loggedUser = useLoggedUser();
   const baseUrl = useBaseUrl();
   try {
     const { data, error } = await useFetch(`https://${baseUrl}/employee/`, {
@@ -57,7 +56,7 @@ export const deleteEmployee = async (item) => {
   const loggedUser = useLoggedUser();
   const baseUrl = useBaseUrl();
   try {
-    const url = `https://${baseUrl}/user/${item.id}/employee`
+    const url = `https://${baseUrl}/employee/${item.id}/delete`
     const { data, error } = await useFetch(url, {
       method: 'POST',
       headers: {
