@@ -4,9 +4,9 @@
             <hr width="40px;">
         </div>
     <div class="persons-container">
-      <div class="item" v-for="(person, index) in persons" :key="index">
+      <div class="item" v-for="(person, index) in persons.employees" :key="index">
         <div class="photo">
-          <img class="person" :src="person.path">
+          <img class="person" :src="'https://' + baseUrl + '/' + person.image">
         </div>
           <div class="single-item">
             <h3>{{ person.name }}</h3>
@@ -23,8 +23,9 @@
 
 <script setup>
 import { ref } from "vue";
-import usePersonelData from "~/composables/usePersonelData";
-const { persons } = usePersonelData();
+const baseUrl = useBaseUrl();
+const persons = ref([]);
+persons.value = await useLoadEmployees();
 </script>
 
 <style scoped lang="css">

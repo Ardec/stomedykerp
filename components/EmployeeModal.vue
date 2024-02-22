@@ -16,8 +16,9 @@
           </div>
         </template>
         <Placeholder class="h-32" />
-        <UForm v-if="!$attrs.item?.id" id="form" :validate="validate" :state="state" @submit="save()" class="erp-form">
+        <UForm id="form" :validate="validate" :state="state" @submit="save()" class="erp-form">
           <UInput
+            v-if="!$attrs.item?.id"
             class="q-ma-sm"
             type="file"
             id="upload_file_file"
@@ -25,20 +26,18 @@
             name="upload_file[file][]"
             multiple />
           <!-- <UButton type="submit" size="xl" class="mt-2">Zapisz</UButton> -->
-        <!-- </UForm> -->
-        <!-- <UForm v-if="$attrs.item?.id" :validate="validate" :state="state" @submit="edit(newData)"> -->
-          <!-- <div class="flex justify-center">
-            <img class="img-preview" :src="'https://' + baseUrl + '/' + $attrs.item.path" />
-          </div> -->
+          <!-- </UForm> -->
+          <!-- <UForm v-if="$attrs.item?.id" :validate="validate" :state="state" @submit="edit(newData)"> -->
+          <div class="flex justify-center">
+            <img v-if="$attrs.item?.id" class="img-preview" :src="'https://' + baseUrl + '/' + $attrs.item.image" />
+          </div>
           <UFormGroup label="Nazwa">
             <UInput size="xl" v-model="newData.name" required="true" />
           </UFormGroup>
           <UFormGroup label="Rola">
             <UInput size="xl" v-model="newData.job" />
           </UFormGroup>
-          <!-- <UFormGroup label="Typ">
-            <UInput size="xl" v-model="newData.type" />
-          </UFormGroup> -->
+
           <div class="bottom-buttons">
             <UButton type="submit" size="xl">Zapisz zmiany</UButton>
             <UButton @click="closeModal()" size="xl" color="orange">Anuluj</UButton>
@@ -52,7 +51,7 @@
 <script setup>
 const baseUrl = useBaseUrl();
 const state = reactive({});
-const uploadFileUrl = ref(`https://${baseUrl}/employee/55/new`);
+
 const emit = defineEmits(['close-modal', 'update']);
 const attrs = useAttrs();
 let isOpen = ref(false);
@@ -66,25 +65,33 @@ function closeModal() {
 }
 
 const handleFileChange = (event) => {
-
   selectedFile = event.target.files[0];
-  console.log(selectedFile)
 };
 
 const save = async () => {
   try {
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-    formData.append('authorId', loggedUser?.value.id);
-    formData.append('name', newData.value.name);
-    formData.append('job', newData.value.job);
-    formData.append('token', loggedUser?.value.token);
-    console.log(formData)
-    const { data, error } = await useFetch(uploadFileUrl, {
-      method: 'POST',
-      headers: {},
-      body: formData,
-    });
+    const uploadFileUrl = newData.value.id
+      ? `https://${baseUrl}/employee/${newData.value.id}/edit`
+      : `https://${baseUrl}/employee/new`;
+
+    if (!newData.value.id) {
+      const formData = new FormData();
+      formData.append('upload_file[file][]', selectedFile);
+      formData.append('upload_file[authorId]', loggedUser?.value.id);
+      formData.append('upload_file[token]', loggedUser?.value.token);
+      formData.append('upload_file[name]', newData.value.name);
+      formData.append('upload_file[job]', newData.value.job);
+      console.log(formData);
+      const { data, error } = await useFetch(uploadFileUrl, {
+        method: 'POST',
+        headers: {},
+        body: formData,
+      });
+      emit('update');
+      emit('close-modal');
+    } else {
+      edit(newData);
+    }
   } catch (error) {
     console.error('Wystąpił błąd:', error);
   }
@@ -92,7 +99,7 @@ const save = async () => {
 
 const edit = async (newData) => {
   try {
-    const newUserData = await useEditFile(newData);
+    const newUserData = await useEditEmplyee(newData.value);
     emit('update');
     emit('close-modal');
   } catch (error) {

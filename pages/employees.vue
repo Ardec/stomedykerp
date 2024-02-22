@@ -1,12 +1,12 @@
 <template>
-  <div class="p-3">
+  <div class="main-content">
     <Table
       title="Personel"
       description="W tym module możesz zarządzać personelem"
       :columns="columns"
       :addNew="true"
-      :items="allUsers.users"
-      :count="allUsers.count"
+      :items="allUsers.employees"
+      :count="allUsers.employees?.length"
       @edit="edit"
       @delete="deleteItem"
       @add="add"
@@ -19,8 +19,11 @@
 const columns = [
   {
     key: 'name',
-    label: 'Nazwa użytkownika',
-    sortable: true,
+    label: 'Nazwa',
+  },
+  {
+    key: 'job',
+    label: 'Rola',
   },
   {
     key: 'actions',
@@ -59,4 +62,8 @@ const deleteItem = async (item) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main-content {
+  max-width: 1152px;
+  margin:auto
+}</style>
